@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import "./index.css";
-import Header from "@/components/Header";
 import main_picture from "@/img/團體照.webp";
 import member1 from "@/img/member/01-黃政文.webp";
 import member2 from "@/img/member/02-蘇奕幃.webp";
@@ -29,7 +28,6 @@ export default function About() {
 
   return (
     <div>
-      <Header />
       <div className="intro-container">
         <div className="intro">
           <h1>Something About Us</h1>
