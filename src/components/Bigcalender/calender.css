@@ -1,0 +1,35 @@
+._node_modules_react_horizontal_datepicker_dist_DatePicker_module__button,
+.datepicker-button-next {
+  background: white;
+  color: grey;
+}
+
+._node_modules_react_horizontal_datepicker_dist_DatePicker_module__dateDayItem {
+  background: #ffe5e5;
+  border-radius: 8px;
+  color: #000000;
+  border: none;
+}
+
+._node_modules_react_horizontal_datepicker_dist_DatePicker_module__monthYearLabel {
+  display: none;
+}
+
+.datepicker-date-day-Item:hover {
+  background: #ffe5e5;
+  border-radius: 8px;
+  color: #000000;
+}
+
+.datepicker {
+  margin: 0px 12px 12px;
+}
+
+.wrapper {
+  margin-left: 20px;
+}
+
+.blank-space-div,
+.scroll-head {
+  display: none;
+}

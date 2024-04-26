@@ -1,0 +1,38 @@
+{
+    "name": "react-date-picker",
+    "version": "1.0.0",
+    "description": "",
+    "keywords": [],
+    "main": "src/index.js",
+    "dependencies": {
+      "@fullcalendar/daygrid": "5.11.3",
+      "@fullcalendar/interaction": "5.11.3",
+      "@fullcalendar/react": "5.11.2",
+      "@fullcalendar/timegrid": "5.11.3",
+      "@meinefinsternis/react-horizontal-date-picker": "1.0.1",
+      "moment": "2.29.4",
+      "react": "18.2.0",
+      "react-dom": "18.2.0",
+      "react-horizontal-datepicker": "2.0.3",
+      "react-horizontal-strip-datepicker": "3.0.2",
+      "react-intl": "6.4.1",
+      "react-scripts": "5.0.1",
+      "react-week-calendar": "0.1.3"
+    },
+    "devDependencies": {
+      "@babel/runtime": "7.13.8",
+      "typescript": "4.1.3"
+    },
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test --env=jsdom",
+      "eject": "react-scripts eject"
+    },
+    "browserslist": [
+      ">0.2%",
+      "not dead",
+      "not ie <= 11",
+      "not op_mini all"
+    ]
+  }
