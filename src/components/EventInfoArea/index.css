@@ -1,0 +1,45 @@
+.activity_info_section {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+}
+
+.activity_info_section .activity_info_section_left {
+  flex: 4
+}
+
+.activity_info_section .activity_info_section_right {
+  flex: 6
+}
+
+/* 活動介紹 */
+.activity_intro {
+  background-color: var(--red-deactivate);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  padding: 16px;
+}
+
+/* AI 訊號 */
+.ai_signal {
+  background-color: var(--red-deactivate);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* 相似活動 */
+.relative_events {
+  background-color: var(--bg-gray);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+/* 歷史紀錄 */
+.history_records {
+  background-color: var(--bg-gray);
+  border-radius: 12px;
+  padding: 16px;
+}

@@ -1,9 +1,10 @@
 import React from "react";
+import EventInfoArea from "@/components/EventInfoArea";
 
 export default function Dashboard() {
   return (
     <>
-      <h1>Dashboard</h1>
+      <EventInfoArea />
     </>
   );
 }
