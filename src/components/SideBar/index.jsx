@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 export default function SideBar() {
   const userName = "派大星";
   const [isOpened, setIsOpened] = useState(false);
+  
   const handleClick = () => {
     setIsOpened(!isOpened);
   };
