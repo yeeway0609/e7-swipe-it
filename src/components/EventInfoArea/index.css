@@ -1,6 +1,6 @@
 .activity_info_section {
   display: flex;
-  gap: 8px;
+  gap: 16px;
   padding: 16px;
 }
 
@@ -12,23 +12,45 @@
   flex: 6
 }
 
+.tab_bar {
+  display: flex;
+  list-style: none;
+}
+.tab_bar li {
+  background-color: var(--red-inactive);
+  color: white;
+  padding: 8px 24px;
+  border: 0.5px solid black;
+  border-radius: 12px 12px 0 0;
+  cursor: pointer;
+}
+.tab_bar li.active {
+  background-color: var(--red-active);
+}
+
 /* 活動介紹 */
 .activity_intro {
-  background-color: var(--red-deactivate);
+  background-color: var(--red-inactive);
   border-radius: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   padding: 16px;
 }
 
-/* AI 訊號 */
-.ai_signal {
-  background-color: var(--red-deactivate);
-  border-radius: 12px;
-  padding: 16px;
+.activity_intro_title {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.activity_intro_title h3 {
+  font-size: 24px;
+}
+.activity_intro_title .star_icon {
+  width: 26px;
+  cursor: pointer;
 }
 
 /* 相似活動 */
-.relative_events {
+.related_events {
   background-color: var(--bg-gray);
   border-radius: 12px;
   padding: 16px;
@@ -37,9 +59,27 @@
   gap: 8px;
 }
 
+.related_event_badge {
+  background-color: var(--red-inactive);
+  width: 120px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* AI 訊號 */
+.ai_signal {
+
+}
+
+.ai_signal_info, .history_records_info {
+  background-color: var(--bg-gray);
+  border-radius: 0 12px 12px 12px;
+  padding: 16px;
+  height: 200px;
+}
+
 /* 歷史紀錄 */
 .history_records {
-  background-color: var(--bg-gray);
-  border-radius: 12px;
-  padding: 16px;
 }
