@@ -1,6 +1,6 @@
 :root {
-  --red-activate: #FFB6B6;
-  --red-deactivate: #FFB6B6;
+  --red-active: #DA0000;
+  --red-inactive: #FFB6B6;
   --bg-gray: #D9D9D9;
 }
 
