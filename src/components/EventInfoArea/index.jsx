@@ -15,19 +15,19 @@ export default function EventInfoArea() {
   const [historyTabActive, setHistoryTabActive] = useState("歷史1");
 
   return (
-    <section className="activity_info_section">
-      <div className="activity_info_section_left">
-        <div className="activity_intro">
-          <div className="activity_intro_title">
+    <section className="activity-info-section">
+      <div className="activity-info-section-left">
+        <div className="activity-intro">
+          <div className="activity-intro-title">
             <h3>{eventData[eventId].name}</h3>
             {favorite
-              ? <FavoriteIcon className="star_icon" onClick={() => setFavorite(false)} />
-              : <NotFavoriteIcon className="star_icon" onClick={() => setFavorite(true)} />}
+              ? <FavoriteIcon className="star-icon" onClick={() => setFavorite(false)} />
+              : <NotFavoriteIcon className="star-icon" onClick={() => setFavorite(true)} />}
           </div>
           <p>{eventData[eventId].intro}</p>
         </div>
-        <div className="ai_signal">
-          <ul className="tab_bar">
+        <div className="ai-signal">
+          <ul className="tab-bar">
             {aiSignalTab.map((tab) => {
               return (
                 <li
@@ -40,20 +40,20 @@ export default function EventInfoArea() {
               );
             })}
           </ul>
-          <div className="ai_signal_info">
+          <div className="ai-signal-info">
             ai 訊號
           </div>
         </div>
       </div>
-      <div className="activity_info_section_right">
-        <div className="related_events">
+      <div className="activity-info-section-right">
+        <div className="related-events">
           <h3>相似活動</h3>
           {eventData[eventId].relatedEventsId.map((id) => {
-            return <button key={id} className="related_event_badge">{eventData[id].name}</button>;
+            return <button key={id} className="related-event-badge">{eventData[id].name}</button>;
           })}
         </div>
-        <div className="history_records">
-          <ul className="tab_bar">
+        <div className="history-records">
+          <ul className="tab-bar">
             {historyTab.map((tab) => {
               return (
                 <li
@@ -66,7 +66,7 @@ export default function EventInfoArea() {
               );
             })}
           </ul>
-          <div className="history_records_info">
+          <div className="history-records-info">
             歷史紀錄
           </div>
         </div>

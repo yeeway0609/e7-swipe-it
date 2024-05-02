@@ -6,27 +6,27 @@ import { Link } from "react-router-dom";
 export default function SideBar() {
   const userName = "派大星";
   const [isOpened, setIsOpened] = useState(false);
-  
+
   const handleClick = () => {
     setIsOpened(!isOpened);
   };
 
   return (
     <>
-      <div className="sidebar_btn" onClick={handleClick}>
+      <div className="sidebar-btn" onClick={handleClick}>
         <Bars3Icon />
       </div>
       <div className={`sidebar ${isOpened ? "opened" : "closed"}`}>
-        <XMarkIcon onClick={handleClick} className="close_sidebar_btn" />
-        <h1>{userName}</h1>
-        <h2>專案探索</h2>
-        <h2>我的專案</h2>
-        <Link to="/">
-          <p>Dashboard</p>
-        </Link>
-        <Link to="/about">
-          <p>About us</p>
-        </Link>
+        <XMarkIcon onClick={handleClick} className="close-sidebar-btn" />
+        <div>
+          <h1>{userName}</h1>
+          <h3>專案探索</h3>
+          <h3>我的專案</h3>
+        </div>
+        <div className="nav-links">
+          <Link to="/" onClick={handleClick}>Dashboard</Link>
+          <Link to="/about" onClick={handleClick}>About us</Link>
+        </div>
       </div>
     </>
   );
