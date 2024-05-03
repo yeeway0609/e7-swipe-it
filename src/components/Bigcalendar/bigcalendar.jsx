@@ -1,25 +1,32 @@
 import React, { useState } from 'react';
+import './bigcalendar.css';
 
-function Counter() {
-  const [count, setCount] = useState(0);
+const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  const increment = () => {
-    setCount(count + 1);
+function App() {
+  const [startDay, setStartDay] = useState(0);
+
+  const handleLeftClick = () => {
+    setStartDay((startDay - 1 + 7) % 7);
   };
 
-  const decrement = () => {
-    setCount(count - 1);
+  const handleRightClick = () => {
+    setStartDay((startDay + 1) % 7);
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', overflowX: 'scroll' }}>
-      <button onClick={decrement} style={{ marginRight: '10px' }}>{"<"}</button>
-      <div style={{ flex: 1 }}>
-        <p>Count: {count}</p>
+    <div className="App">
+      <button onClick={handleLeftClick}>Left</button>
+      <div className="week">
+        {days.slice(startDay, startDay + 7).map((day, index) => (
+          <div key={index} className="day">
+            {day}
+          </div>
+        ))}
       </div>
-      <button onClick={increment} style={{ marginLeft: '10px' }}>{">"}</button>
+      <button onClick={handleRightClick}>Right</button>
     </div>
   );
 }
 
-export default Counter;
+export default App;
