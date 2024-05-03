@@ -1,9 +1,9 @@
 import "./styles.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import Calendar from "./Calendar";
 import Details from "./Details";
 
-export default function App() {
+export default function BigCalendar() {
   const [showDetails, setShowDetails] = useState(false);
   const [data, setData] = useState(null);
 
@@ -63,9 +63,9 @@ export default function App() {
 //        <BB />
 //     </div>
 // )
-  
-  
-  
+
+
+
 // }
 
 // export default Bigcalandar;
