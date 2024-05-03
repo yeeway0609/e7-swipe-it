@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    flex-flow: column nowrap;
+    
+  }
+  
+  .select {
+    margin: 20px auto;
+    display: none;
+
+  }
