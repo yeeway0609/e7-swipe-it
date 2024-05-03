@@ -1,3 +1,13 @@
-import React, { useState, createContext }  from "react";
+import React, { useState, createContext } from "react";
 
-export const EventIdContext = createContext(0);
+export const EventIdContext = createContext();
+
+export const EventIdProvider = ({ children }) => {
+  const [eventId, setEventId] = useState(0);
+
+  return (
+    <EventIdContext.Provider value={{ eventId, setEventId }}>
+      {children}
+    </EventIdContext.Provider>
+  );
+};
