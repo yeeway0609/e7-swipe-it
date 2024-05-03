@@ -7,7 +7,7 @@ import eventData from "@/data/events.json";
 
 
 export default function EventInfoArea() {
-  const eventId = useContext(EventIdContext);
+  const { eventId, setEventId } = useContext(EventIdContext);
   const [favorite, setFavorite] = useState(false);
   const aiSignalTab = ["交通", "住宿", "票券", "飲食"];
   const [aiTabActive, setAiTabActive] = useState("交通");
@@ -49,7 +49,14 @@ export default function EventInfoArea() {
         <div className="related-events">
           <h3>相似活動</h3>
           {eventData[eventId].relatedEventsId.map((id) => {
-            return <button key={id} className="related-event-badge">{eventData[id].name}</button>;
+            return (
+              <button
+                key={id}
+                className="related-event-badge"
+                onClick={() => setEventId(id)}
+              >
+                {eventData[id].name}
+              </button>);
           })}
         </div>
         <div className="history-records">
