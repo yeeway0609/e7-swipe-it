@@ -1,16 +1,16 @@
 import React from "react";
 import "./style.css";
-import { DateRangePicker } from 'react-date-range';
-import { useState } from 'react'
+import { DateRangePicker } from "react-date-range";
+import { useState } from "react"
 
-import './styles.css'; // main css file
-import './default.css'; // theme css file
+import "./styles.css"; // main css file
+import "./default.css"; // theme css file
 
-const Smallcalender = () => {
+const SmallCalender = () => {
   const [date, setDate] = useState({
     startDate: new Date(),
     endDate: new Date(),
-    key: 'selection',
+    key: "selection",
   });
 
   const handleChange = (ranges) => {
@@ -23,7 +23,7 @@ const Smallcalender = () => {
       setDate({
         startDate: selection.startDate,
         endDate: new Date(selection.startDate.getTime() + (maxRangeInDays - 1) * 24 * 60 * 60 * 1000),
-        key: 'selection'
+        key: "selection"
       });
     } else {
       setDate(selection);
@@ -83,17 +83,17 @@ export default Smallcalender;
 
 // import React from "react";
 // import "./style.css";
-// import { DateRangePicker } from 'react-date-range';
-// import { useState } from 'react'
+// import { DateRangePicker } from "react-date-range";
+// import { useState } from "react"
 
-// import './styles.css'; // main css file
-// import './default.css'; // theme css file
+// import "./styles.css"; // main css file
+// import "./default.css"; // theme css file
 
 // const Smallcalender = () => {
 //   const [date, setDate] = useState({
 //     startDate: new Date(),
 //     endDate: new Date(),
-//     key: 'selection',
+//     key: "selection",
 //   });
 
 //   const handleChange = (ranges) => {
@@ -106,7 +106,7 @@ export default Smallcalender;
 //       setDate({
 //         startDate: selection.startDate,
 //         endDate: new Date(selection.startDate.getTime() + (maxRangeInDays - 1) * 24 * 60 * 60 * 1000),
-//         key: 'selection'
+//         key: "selection"
 //       });
 //     } else {
 //       setDate(selection);
