@@ -1,12 +1,12 @@
 import React from "react";
 import "./style.css";
 import { DateRangePicker } from "react-date-range";
-import { useState } from "react"
+import { useState } from "react";
 
 import "./styles.css"; // main css file
 import "./default.css"; // theme css file
 
-const SmallCalender = () => {
+const SmallCalendar = () => {
   const [date, setDate] = useState({
     startDate: new Date(),
     endDate: new Date(),

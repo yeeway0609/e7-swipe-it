@@ -1,14 +1,14 @@
 import "./style.css";
 import React from "react";
 import EventInfoArea from "@/components/EventInfoArea";
-import SmallCalender from "@/components/SmallCalender";
+import SmallCalendar from "@/components/SmallCalendar";
 import BigCalendar from "@/components/BigCalendar";
 
 export default function Dashboard() {
   return (
     <div>
       <div className="calendar-area">
-        <SmallCalender />
+        <SmallCalendar />
         <BigCalendar/>
       </div>
       <EventInfoArea />
