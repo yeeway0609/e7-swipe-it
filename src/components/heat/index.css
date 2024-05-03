@@ -13,6 +13,10 @@
     outline: 0; }
 .svg-map__location[aria-checked=true] {
     fill: #f4bc44; }
-
+    
+.svg-map__location[name="Chiayi County" ] {
+    fill: rgb(230, 53, 17); /* 將台北市的顏色設定為橙色 */
+}
+    
         
         
