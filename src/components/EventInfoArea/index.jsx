@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.sass";
 import { React, useState, useContext } from "react";
 import { EventIdContext } from "@/context/EventIdContext";
 import { StarIcon as NotFavoriteIcon } from "@heroicons/react/24/outline";

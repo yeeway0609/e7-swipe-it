@@ -1,4 +1,5 @@
-import "./style.css";
+// import "./style.css";
+import "./style.sass";
 import { React, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 

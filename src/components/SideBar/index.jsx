@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.sass";
 import { React, useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";

@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.sass";
 import React from "react";
 import EventInfoArea from "@/components/EventInfoArea";
 import SearchPanel from "@/components/SearchPanel";
