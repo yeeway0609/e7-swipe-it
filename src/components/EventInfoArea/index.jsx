@@ -1,8 +1,8 @@
+import "./style.css";
 import { React, useState, useContext } from "react";
 import { EventIdContext } from "@/context/EventIdContext";
 import { StarIcon as NotFavoriteIcon } from "@heroicons/react/24/outline";
 import { StarIcon as FavoriteIcon } from "@heroicons/react/24/solid";
-import "./index.css";
 import eventData from "@/data/events.json";
 
 

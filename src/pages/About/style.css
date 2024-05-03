@@ -10,10 +10,12 @@
   width: 30%;
   margin-left: 36px;
 }
+
 .intro h1 {
   font-size: 80px;
   font-weight: 500;
 }
+
 .intro p {
   font-size: 20px;
 }
@@ -24,17 +26,19 @@
   height: 100%;
   width: 100%;
 }
+
 .people-images img {
   position: absolute;
   height: 80%;
-  bottom: 0px;
+  bottom: 0;
   margin-left: -50px;
 }
-.people-images .gray_vector {
+
+.people-images .gray-vector {
   position: absolute;
   width: 80%;
   height: 80%;
-  bottom: 0px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   background-color: #c4c4c4;
@@ -56,13 +60,16 @@
   background-color: #c4c4c4;
   transition: all 0.3s ease;
 }
+
 .member-card-container {
   position: absolute;
   display: flex;
 }
+
 .member-container img {
   height: 100%;
 }
+
 .member-container:hover {
   height: 400px;
   width: 200px;
@@ -73,64 +80,14 @@
   position: absolute;
   left: 70%;
 }
+
 .right-side h3 {
   margin-bottom: 16px;
   font-size: 36px;
 }
+
 .right-side p {
   margin-top: 0;
   margin-bottom: 4px;
 }
 
-/* .personsmall{
-  max-width: 15%;
-  margin-left:-18px;
-  width: auto;
-  height: auto;
-  bottom: 0px;
-  z-index: 1;
-  object-fit: contain;
-  cursor: pointer;
-}
-
-.personsmall:hover {
-  transform: scale(1.1) translateY(-15px);
-}
-
-.personsmall {
-  transition: transform 0.3s ease;
-}
-
-.vector{
-  position: absolute;
-  display: flex;
-  width: auto;
-  height: auto;
-  bottom: -100%;
-}
-
-.vectorsmall{
-  margin-left: 20px;
-  bottom: 0px;
-}
-
-
-#button1{
-  max-width: 100%;
-  margin-left:0px;
-  width: auto;
-  height: auto;
-  bottom: 0px;
-  z-index: 1;
-  object-fit: contain;
-}
-
-
-.member_introduce{
-  position: absolute;
-  top: 115%;
-  left: 30%;
-  transform: translateX(-50%);
-  font-size: 60px;
-  color: black;
-} */
