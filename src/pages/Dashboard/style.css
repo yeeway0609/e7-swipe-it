@@ -1,3 +1,7 @@
 .calendar-area {
   display: flex;
 }
+
+.calendar-area-left {
+  padding: 20px;
+}
