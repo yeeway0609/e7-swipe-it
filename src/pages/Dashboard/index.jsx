@@ -1,7 +1,7 @@
 import React from "react";
 import EventInfoArea from "@/components/EventInfoArea";
 import Smallcalender from "@/components/Smallcalender";
-import App from "@/components/Bigcalendar";
+import Bigcalendar from "@/components/Bigcalendar";
 
 
 export default function Dashboard() {
@@ -9,7 +9,7 @@ export default function Dashboard() {
     <div>
       <Smallcalender />
       <EventInfoArea />
-      <App />
+      <Bigcalendar />
     </div>
   );
 }

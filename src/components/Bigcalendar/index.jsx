@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import './bigcalendar.css';
-
-const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-function App() {
+import './index.css';
 
 
- 
+function Bigcalandar() {
+
+  return(
+    <h1>hihi</h1>
+  )
+  
 }
 
-export default App;
+export default Bigcalandar;
+
