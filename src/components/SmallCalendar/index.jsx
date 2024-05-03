@@ -6,7 +6,7 @@ import { useState } from "react";
 import "./styles.css"; // main css file
 import "./default.css"; // theme css file
 
-const SmallCalendar = () => {
+export default function SmallCalendar() {
   const [date, setDate] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -44,7 +44,6 @@ const SmallCalendar = () => {
   );
 };
 
-export default Smallcalender;
 
 
 
