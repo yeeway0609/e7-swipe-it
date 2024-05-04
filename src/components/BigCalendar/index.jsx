@@ -14,11 +14,15 @@ export default function BigCalendar() {
 
   return (
     <div className="App">
-      <h1>Week View Calendar with react</h1>
+
+      {/* <h2 id="w1">總攬</h2> */}
+      {/* <h2 id="w2">收藏</h2>
+      <h2 id="w3">活動匯入</h2> */}
+      {/* <h1>Week View Calendar with react</h1> */}
       <br />
-      <h2>Example</h2>
+      {/* <h2>Example</h2> */}
       <Calendar showDetailsHandle={showDetailsHandle} />
-      <br />
+      {/* <br /> */}
       {showDetails && <Details data={data} />}
     </div>
   );

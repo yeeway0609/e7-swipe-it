@@ -2,7 +2,7 @@
     font-family: sans-serif;
     text-align: center;
     min-height: 700px;
-    background-color: paleturquoise;
+    background-color: rgb(249, 251, 251);
     margin: 0;
     padding: 20px;
     width: 100%;
@@ -31,7 +31,8 @@
   /* VARIABLES */
 
   :root {
-    --main-color: #1a8fff;
+    --main-color: #399361;
+    /* --main-color: #1a8fff; */
     --text-color: #777;
     --text-color-light: #ccc;
     --border-color: #eee;
@@ -73,7 +74,7 @@
   main {
     display: block;
     margin: 0 auto;
-    margin-top: 5em;
+    margin-top: 1em;
     max-width: 50em;
   }
 
@@ -161,7 +162,7 @@
 
   .calendar .body .cell {
     position: relative;
-    height: 4em;
+    height: 40em;
     border-right: 1px solid var(--border-color);
     overflow: hidden;
     cursor: pointer;
@@ -239,3 +240,21 @@
     flex-basis: calc(100% / 7);
     width: calc(100% / 7);
   }
+
+  /* #w1{
+    position:static;
+    font-size: 20px;
+    color:black;
+    top:5%;
+    left:60%;
+  } */
+  /* #w2{
+    position: absolute;
+    font-size: 24px;
+    color:black;
+  }
+  #w3{
+    position: absolute;
+    font-size: 24px;
+    color:black;
+  } */

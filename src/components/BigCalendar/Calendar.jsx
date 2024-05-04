@@ -137,7 +137,7 @@ const Calendar = ({ showDetailsHandle }) => {
   };
   return (
     <div className="calendar">
-      {renderHeader()}
+      {/* {renderHeader()} */}
       {renderDays()}
       {renderCells()}
       {renderFooter()}
