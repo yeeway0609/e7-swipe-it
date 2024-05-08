@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import "./index.css";
+import "./style.sass";
 import main_picture from "@/img/團體照.webp";
 import member1 from "@/img/member/01-黃政文.webp";
 import member2 from "@/img/member/02-蘇奕幃.webp";
@@ -34,7 +34,7 @@ export default function About() {
           <p>我們是一支致力於信用卡企劃業務提案的軟體開發團隊，提供即時現有活動，並比較過去同等規模的活動的經濟規模等資訊。透過我們軟體的協助，能夠為企劃業務提供更具可行性和可靠性的建議，協助其提出更有競爭力的提案。</p>
         </div>
         <div className="people-images">
-          <div className="gray_vector"></div>
+          <div className="gray-vector"></div>
           <img src={main_picture} alt="main_picture" />
         </div>
       </div>
