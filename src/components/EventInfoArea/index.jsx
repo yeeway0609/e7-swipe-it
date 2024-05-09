@@ -6,7 +6,6 @@ import { StarIcon as FavoriteIcon } from "@heroicons/react/24/solid";
 import CanvasJSReact from '@canvasjs/react-charts';
 import eventData from "@/data/events.json";
 import PieChartData from "@/data/PieChartData.json";
-import { connect } from "bun";
 
 export default function EventInfoArea() {
   const { eventId, setEventId } = useContext(EventIdContext);
@@ -18,16 +17,14 @@ export default function EventInfoArea() {
 
   var CanvasJS = CanvasJSReact.CanvasJS;
   var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-  var CanvasJSChartRight = CanvasJSReact.CanvasJSChart;
-
+  
   const options = {
-    //exportEnabled: true,
     animationEnabled: true,
     interactivityEnabled: true,
     highlightEnabled: true,
     explodeOnClick: true,
     colorSet:"redShades",
-    backgroundColor: "#e0e0e0 ",
+    backgroundColor: "#e0e0e0",
     width:200,
     height:200,
     data: [{
@@ -40,28 +37,6 @@ export default function EventInfoArea() {
     }]
     
 
-      width: 30 ,
-      dataPoints:PieChartData//json
-    }]
-
-  }
-  const optionss = {
-    //exportEnabled: true,
-    animationEnabled: true,
-    interactivityEnabled: false,
-    colorSet:"redShades",
-    // title: {
-    //   text: "歷史紀錄~"
-    // },
-   
-    data: [{
-      type: "pie",
-      startAngle: 75,
-      legendText: "{label}",
-      indexLabelFontSize: 16,
-      width: 30 ,
-      dataPoints:PieChartData//json
-    }]
   }
   CanvasJS.addColorSet("redShades",
   [//colorSet Array
@@ -106,14 +81,6 @@ export default function EventInfoArea() {
           </ul>
           <div className="ai-signal-info-right">
               <CanvasJSChart options = {options}/>
-          <div className="ai-signal-info">
-            <div className="pie">
-            <CanvasJSChart options = {options}/>
-              {/* <CanvasJSChart options = {options}
-                // onRef={ref => this.chart = ref}
-              /> */}
-              {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-            </div>
           </div>
         </div>
       </div>
@@ -151,13 +118,9 @@ export default function EventInfoArea() {
             歷史紀錄
           </div>
          {/* add pie right   */}
-         <div className="right_pie">
-         <CanvasJSChart options = {optionss}/>
-         </div>
-         
+          
         </div>
       </div>
-      
     </section>
     
   );
