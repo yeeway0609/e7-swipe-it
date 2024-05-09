@@ -124,7 +124,11 @@ export default function BigCalendar() {
                           key={index}
                           className="event"
                           onClick={() => setEventId(event.id)}
-                          style={{ width: `${width}%`, backgroundColor: eventColor[event.eventType] }}
+                          style={{
+                            width: `${width}%`,
+                            backgroundColor: eventColor[event.eventType],
+                            border: (event.id === eventId) ? "3px solid black" : "none"
+                          }}
                         >
                           {event.name}
                         </div>
