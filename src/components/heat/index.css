@@ -1,5 +1,5 @@
 .svg-map {
-    width: 70%;
+    width: 50%;
     height: auto;
     stroke: #666;
     stroke-width: 1;
@@ -27,20 +27,20 @@
 
 
 .box{
-    border: 2px;
-    border-color: #000000;
-    border-style: solid;
+    border: 1px solid black;
     border-radius: 20px;
+    padding: 20px;
 }
 
 .text{
-    position: relative;
-    left: 15px;
-    top: 30px;
-    color: red;
-    font-size: 17px;
+    color: var(--red-active);
+    font-size: 20px;
     font-weight: bold;
 }
 
-
+.map-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
