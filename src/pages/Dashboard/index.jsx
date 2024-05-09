@@ -9,6 +9,7 @@ import HeatMapComponent from "@/components/heat";
 export default function Dashboard() {
   return (
     <div>
+      <img className="bank-logo" src="bank_sinopac.png" alt="永豐銀行" />
       <div className="calendar-area">
         <div className="calendar-area-left">
           <SearchPanel />
