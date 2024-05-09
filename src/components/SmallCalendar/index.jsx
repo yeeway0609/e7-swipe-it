@@ -9,7 +9,7 @@ export default function SmallCalendar() {
   const [date, setDate] = useState(null);
 
   return (
-    <div className="container">
+    <div className="calendar-container">
       <Calendar
         className="calendar"
         date={date}
