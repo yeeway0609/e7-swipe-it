@@ -25,5 +25,21 @@
     fill: rgb(230, 53, 17); /* 將台北市的顏色設定為橙色 */
 }
 
+.box{
+    border: 2px;
+    border-color: #000000;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+.text{
+    position: relative;
+    left: 15px;
+    top: 30px;
+    color: red;
+    font-size: 17px;
+    font-weight: bold;
+}
+
 
 
