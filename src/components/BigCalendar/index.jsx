@@ -10,6 +10,16 @@ export default function BigCalendar() {
   const { selectedDate } = useContext(SelectedDateContext);
   const { eventId, setEventId } = useContext(EventIdContext);
 
+  const eventColor = {
+    "音樂祭": "#DA0000",
+    "演唱會(大型)": "#DA0000",
+    "演唱會(小型)": "#DA0000",
+    "藝文表演": "#3D8B00",
+    "藝文展覽": "#3D8B00",
+    "工商展覽(B2B)": "#0011A4",
+    "工商展覽(B2C)": "#0011A4",
+  };
+
   const currentDayRef = useRef(null);
   const parentRef = useRef(null);
 
@@ -114,7 +124,7 @@ export default function BigCalendar() {
                           key={index}
                           className="event"
                           onClick={() => setEventId(event.id)}
-                          style={{ width: `${width}%` }}
+                          style={{ width: `${width}%`, backgroundColor: eventColor[event.eventType] }}
                         >
                           {event.name}
                         </div>
