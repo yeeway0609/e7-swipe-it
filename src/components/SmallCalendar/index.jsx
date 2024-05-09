@@ -11,6 +11,7 @@ export default function SmallCalendar() {
   return (
     <div className="container">
       <Calendar
+        className="calendar"
         date={date}
         onChange={item => {
           setDate(item);
