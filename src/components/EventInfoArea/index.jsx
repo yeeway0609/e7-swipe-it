@@ -36,7 +36,24 @@ export default function EventInfoArea() {
       dataPoints:PieChartData
     }]
     
-
+  }
+  const optionss = {
+    //exportEnabled: true,
+    animationEnabled: true,
+    interactivityEnabled: false,
+    colorSet:"redShades",
+    // title: {
+    //   text: "歷史紀錄~"
+    // },
+   
+    data: [{
+      type: "pie",
+      startAngle: 75,
+      legendText: "{label}",
+      indexLabelFontSize: 16,
+      width: 30 ,
+      dataPoints:PieChartData//json
+    }]
   }
   CanvasJS.addColorSet("redShades",
   [//colorSet Array
