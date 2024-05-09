@@ -39,11 +39,6 @@ export default function EventInfoArea() {
       dataPoints:PieChartData
     }]
     
-
-      width: 30 ,
-      dataPoints:PieChartData//json
-    }]
-
   }
   const optionss = {
     //exportEnabled: true,
