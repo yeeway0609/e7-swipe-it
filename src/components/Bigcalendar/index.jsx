@@ -10,6 +10,9 @@ export default function BigCalendar() {
   const { selectedDate } = useContext(SelectedDateContext);
   const { eventId, setEventId } = useContext(EventIdContext);
 
+  const currentDayRef = useRef(null);
+  const parentRef = useRef(null);
+
   // 在組件初次渲染時滾動到當天日期的元素
   useEffect(() => {
     currentDayRef.current?.scrollIntoView({
@@ -30,7 +33,7 @@ export default function BigCalendar() {
       if (targetElement) {
         console.log(targetElement);
         targetElement.scrollIntoView({
-          behavior: "smooth",
+          behavior: "instant",
           inline: "center",
           block: "nearest"
         });
@@ -38,46 +41,23 @@ export default function BigCalendar() {
     }
   }, [selectedDate]);
 
-  // 格式化日期的函式，將 Date 物件轉換成 yyyy-mm-dd 格式的日期字串
-  function formatDates(inputDate) {
-    let month =
-      +inputDate.getMonth() + 1 < 10
-        ? "0" + (+inputDate.getMonth() + 1)
-        : +inputDate.getMonth() + 1;
-    let date =
-      +inputDate.getDate() < 10
-        ? "0" + inputDate.getDate()
-        : inputDate.getDate();
-    return inputDate.getFullYear() + "-" + month + "-" + date;
+  // 格式化日期的函式，將 Date 轉換成 yyyy-mm-dd 格式的字串
+  function formatDates(d) {
+    const year = d.getFullYear();
+    const month = (d.getMonth() < 9) ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1);
+    const day = (d.getDate() < 10) ? "0" + d.getDate() : d.getDate();
+    return `${year}-${month}-${day}`;
   }
 
-  // 計算兩個日期之間的天數
-  function getNoOfDays(start, last) {
-    // gives no. of days
-    if (!start || !last) return;
-    const date1 = new Date(start);
-    const date2 = new Date(last);
-
-    const oneDay = 1000 * 60 * 60 * 24;
-
-    const diffTime = date2.getTime() - date1.getTime();
-
-    const diffDays = Math.round(diffTime / oneDay) + 1;
-    if (diffDays >= 0) return diffDays;
-  }
-
-  const currentDayRef = useRef(null);
-  const parentRef = useRef(null);
-
-  // 獲取當前年月的第一天和最後一天的日期字串
-  let date = new Date(), y = date.getFullYear(), m = date.getMonth();
-  let firstDay = formatDates(new Date(y, m, 1));
-  let lastDay = formatDates(new Date(y, m + 1, 0));
+  // 使用 useState 來儲存整個日曆的起始結束範圍
+  const firstDay = "2024-01-01";
+  const lastDay = "2024-12-31";
+  const [dateRange, setDateRange] = useState([firstDay, lastDay]);
 
   // 生成指定日期範圍內每天的資訊陣列
   function weekDays(loopDate, loopEndDate) {
     const today = formatDates(new Date());
-    let newWeekDays = [];
+    const newWeekDays = [];
 
     while (loopDate <= loopEndDate) {
       newWeekDays.push({
@@ -89,55 +69,19 @@ export default function BigCalendar() {
         isCurrentMonth: new Date(loopDate).getMonth() === new Date().getMonth() // 判斷是否為當前月份
       });
 
-      let newDate = loopDate.setDate(loopDate.getDate() + 1); // 取得下一天的日期
+      const newDate = loopDate.setDate(loopDate.getDate() + 1); // 取得下一天的日期
       loopDate = new Date(newDate); // 將 loopDate 更新為下一天的日期物件
     }
-    return newWeekDays; // 返回包含日期資訊的陣列
+    return newWeekDays;
   }
 
-  // 使用 useState 來儲存日期範圍狀態
-  const [dateRange, setDateRange] = useState([firstDay, lastDay]);
-
-  // 生成指定日期範圍內的每天資訊
-  let days = weekDays(new Date(dateRange[0]), new Date(dateRange[1]));
-
-  // 處理水平滾動事件的函式
-  let e = document.getElementById("week-view-wrapper");
-  let dayWidth = ((window.innerWidth - 10) / 7 + 1).toFixed(2); // 計算每天的 div 寬度
-
-  const handleHorizontalScroll = () => {
-    // 如果滾動到最右側，則增加後一個月的日期範圍
-    if (Math.ceil(e.scrollLeft) + e.clientWidth >= e.scrollWidth) {
-      let date = new Date(dateRange[1]);
-      let y = date.getFullYear();
-      let m = date.getMonth();
-      let lastDay = formatDates(new Date(y, m + 2, 0), "yyyy-mm-dd");
-
-      setDateRange([dateRange[0], lastDay]); // 更新日期範圍
-    } else if (e.scrollLeft <= 0) {
-      // 如果滾動到最左側，則增加前一個月的日期範圍
-      let date = new Date(dateRange[0]);
-      date.setMonth(date.getMonth() - 1);
-      let y = date.getFullYear();
-      let m = date.getMonth();
-      let firstDay = formatDates(new Date(y, m, 1), "yyyy-mm-dd");
-      let lastDay = formatDates(new Date(y, m + 1, 0), "yyyy-mm-dd");
-      let scrollValue = dayWidth * getNoOfDays(firstDay, lastDay);
-
-      setDateRange([firstDay, dateRange[1]]); // 更新日期範圍
-
-      setTimeout(() => {
-        e.scrollTo(scrollValue, 0); // 滾動到新的日期範圍
-      }, 0);
-    }
-  };
+  const days = weekDays(new Date(dateRange[0]), new Date(dateRange[1]));
 
   return (
     <div
       className="leave-calendar-content slide"
       id="week-view-wrapper"
       ref={parentRef}
-      onScroll={handleHorizontalScroll}
     >
       <div id="day-heading">
         {days.map((day, index) => {
