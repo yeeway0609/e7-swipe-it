@@ -5,9 +5,7 @@ import { StarIcon as NotFavoriteIcon } from "@heroicons/react/24/outline";
 import { StarIcon as FavoriteIcon } from "@heroicons/react/24/solid";
 import CanvasJSReact from '@canvasjs/react-charts';
 import eventData from "@/data/events.json";
-
-
-
+import PieChartData from "@/data/PieChartData.json";
 
 export default function EventInfoArea() {
   const { eventId, setEventId } = useContext(EventIdContext);
@@ -19,11 +17,12 @@ export default function EventInfoArea() {
 
   var CanvasJS = CanvasJSReact.CanvasJS;
   var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-chart.render();
+  
   const options = {
     exportEnabled: true,
     animationEnabled: true,
+    interactivityEnabled: false,
+    colorSet:"redShades",
     title: {
       text: "AI推薦訊號"
     },
@@ -31,47 +30,27 @@ chart.render();
     data: [{
       type: "pie",
       startAngle: 75,
-      toolTipContent: "<b>{label}</b>: {y}%",
       legendText: "{label}",
       indexLabelFontSize: 16,
-      indexLabel: "{label} - {y}%",
-      dataPoints: [
-        { y: 18, label: "Direct" },
-        { y: 49, label: "Organic Search" },
-        { y: 9, label: "Paid Search" },
-        { y: 5, label: "Referral" },
-        { y: 19, label: "Social" }
-      ]
+      width: 30 ,
+      dataPoints:PieChartData
     }]
-
     
-  }
-  
-  const optionss = {
-    exportEnabled: true,
-    animationEnabled: true,
-    title: {
-      text: "歷史紀錄"
-    },
-   
-    data: [{
-      type: "pie",
-      startAngle: 75,
-      toolTipContent: "<b>{label}</b>: {y}%",
-      legendText: "{label}",
-      indexLabelFontSize: 16,
-      indexLabel: "{label} - {y}%",
-      dataPoints: [
-        { y: 50, label: "高鐵" },
-        { y: 25, label: "火車" },
-        { y: 20, label: "客運" },
-        { y: 5, label: "?" },
-        { y: 5, label: "??" }
-      ]
-    }]
 
-    
   }
+  CanvasJS.addColorSet("redShades",
+  [//colorSet Array
+  "#FF0000", // Red
+  "#FF6347", // Tomato
+  "#FF4500", // OrangeRed
+  "#DC143C", // Crimson
+  "#B22222", // FireBrick
+  "#8B0000", // DarkRed
+  "#A52A2A", // Brown
+  "#D2691E", // Chocolate
+  "#CD5C5C", // IndianRed
+  "#F08080"  // LightCoral               
+  ]);
 
 
   return (
@@ -102,11 +81,11 @@ chart.render();
           </ul>
           <div className="ai-signal-info">
             <div className="pie">
-              <CanvasJSChart options = {options}
-              /* onRef={ref => this.chart = ref} */
-              />
+              {/* <CanvasJSChart options = {options}
+                // onRef={ref => this.chart = ref}
+              /> */}
               {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -147,6 +126,8 @@ chart.render();
           
         </div>
       </div>
+      <CanvasJSChart options = {options}/>
     </section>
+    
   );
 }
