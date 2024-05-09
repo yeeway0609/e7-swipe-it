@@ -169,13 +169,12 @@ export default function EventInfoArea() {
             })}
           </ul>
           <div className="history-records-info">
-            歷史紀錄
+            <h3>歷史紀錄</h3>
+              <div className="right_pie">
+                <CanvasJSChartRight options = {optionss}/>
+              </div>
           </div >
-              {/* add pie right   */}
-            <div className="right_pie">
-              <CanvasJSChartRight options = {optionss}/>
-            </div>
-         
+
         </div>
       </div>
     </section>
