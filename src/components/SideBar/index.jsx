@@ -26,6 +26,7 @@ export default function SideBar() {
         <div className="nav-links">
           <Link to="/" onClick={handleClick}>Dashboard</Link>
           <Link to="/about" onClick={handleClick}>About us</Link>
+          <Link to="/addEvent" onClick={handleClick}>Add Event</Link>
         </div>
       </div>
     </>
