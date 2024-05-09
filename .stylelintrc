@@ -4,5 +4,9 @@
 	],
   "plugins": [
 		"stylelint-order"
-	]
+	],
+	"rules": {
+    "color-function-notation": null,
+		"selector-class-pattern": null
+  }
 }

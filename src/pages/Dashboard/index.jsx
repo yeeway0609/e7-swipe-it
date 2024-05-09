@@ -4,6 +4,7 @@ import EventInfoArea from "@/components/EventInfoArea";
 import SearchPanel from "@/components/SearchPanel";
 import SmallCalendar from "@/components/SmallCalendar";
 import BigCalendar from "@/components/BigCalendar";
+import HeatMapComponent from "@/components/heat";
 
 export default function Dashboard() {
   return (
@@ -12,6 +13,7 @@ export default function Dashboard() {
         <div className="calendar-area-left">
           <SearchPanel />
           <SmallCalendar />
+          <HeatMapComponent />
         </div>
         <BigCalendar/>
       </div>
