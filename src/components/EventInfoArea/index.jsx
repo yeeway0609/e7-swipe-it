@@ -8,6 +8,7 @@ import eventData from "@/data/events.json";
 
 export default function EventInfoArea() {
   const { eventId, setEventId } = useContext(EventIdContext);
+  const currentEvent = eventData.find((event) => event.id === eventId);
   const [favorite, setFavorite] = useState(false);
   const aiSignalTab = ["交通", "住宿", "票券", "飲食"];
   const [aiTabActive, setAiTabActive] = useState("交通");
@@ -19,12 +20,12 @@ export default function EventInfoArea() {
       <div className="activity-info-section-left">
         <div className="activity-intro">
           <div className="activity-intro-title">
-            <h3>{eventData[eventId].name}</h3>
+            <h3>{currentEvent.name}</h3>
             {favorite
               ? <FavoriteIcon className="star-icon" onClick={() => setFavorite(false)} />
               : <NotFavoriteIcon className="star-icon" onClick={() => setFavorite(true)} />}
           </div>
-          <p>{eventData[eventId].intro}</p>
+          <p>{currentEvent.intro}</p>
         </div>
         <div className="ai-signal">
           <ul className="tab-bar">
@@ -48,14 +49,14 @@ export default function EventInfoArea() {
       <div className="activity-info-section-right">
         <div className="related-events">
           <h3>相似活動</h3>
-          {eventData[eventId].relatedEventsId.map((id) => {
+          {currentEvent.relatedEventsId.map((id) => {
             return (
               <button
                 key={id}
                 className="related-event-badge"
                 onClick={() => setEventId(id)}
               >
-                {eventData[id].name}
+                {eventData.find((event) => event.id === id).name}
               </button>);
           })}
         </div>
