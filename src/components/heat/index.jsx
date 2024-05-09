@@ -12,7 +12,11 @@ class HeatMapComponent extends React.Component {
 
   render() {
     return (
-      <CheckboxSVGMap map={Taiwan}/>
+      <div className='box'>
+        <p className='text'>活動地區</p>
+        <CheckboxSVGMap map={Taiwan}/>
+      </div>
+      
     );
   }
 }
