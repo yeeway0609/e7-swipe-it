@@ -37,6 +37,34 @@ export default function EventInfoArea() {
     }]
     
   }
+  const Line_Chart = {
+    animationEnabled: true,
+    interactivityEnabled: true,
+    highlightEnabled: true,
+    explodeOnClick: true,
+    backgroundColor: "#e0e0e0",
+    width:400,
+    height:200,
+    data: [{
+      type: "line",
+      lineColor: "red",
+      indexLabelFontSize: 16,
+      dataPoints: [
+        { x: new Date(2012, 0, 1), y: 450 },
+        { x: new Date(2012, 1, 1), y: 414 },
+        { x: new Date(2012, 2, 1), y: 520 },
+        { x: new Date(2012, 3, 1), y: 460 },
+        { x: new Date(2012, 4, 1), y: 450 },
+        { x: new Date(2012, 5, 1), y: 500 },
+        { x: new Date(2012, 6, 1), y: 480 },
+        { x: new Date(2012, 7, 1), y: 480 },
+        { x: new Date(2012, 8, 1), y: 410 },
+        { x: new Date(2012, 9, 1), y: 500 },
+        { x: new Date(2012, 10, 1), y: 480 },
+        { x: new Date(2012, 11, 1), y: 510 }
+        ]
+    }]    
+  }
   const optionss = {
     //exportEnabled: true,
     animationEnabled: true,
@@ -97,7 +125,16 @@ export default function EventInfoArea() {
             })}
           </ul>
           <div className="ai-signal-info-right">
-              <CanvasJSChart options = {options}/>
+            <div className="container">
+              <p>AI訊號推薦</p>
+              <CanvasJSChart className="chart" options = {options}/>
+              <p>商品訊號</p>
+              <p>過去5年內當 高鐵 發生hike訊號時，在4天後 飯店 也會發生hike訊號，並延續56天。</p>
+              <CanvasJSChart className="chart" options = {Line_Chart}/>
+              <p>新聞熱搜關鍵字</p>
+              <p>新聞連結</p>
+            </div>
+            
           </div>
         </div>
       </div>
