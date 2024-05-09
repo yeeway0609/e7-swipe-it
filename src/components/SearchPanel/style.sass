@@ -1,0 +1,44 @@
+.search-panel
+	padding: 20px
+	border: 1px solid black
+	border-radius: 20px
+
+.search-bar
+	display: flex
+	padding: 4px
+	margin-bottom: 8px
+	border: 1px solid black
+	border-radius: 8px
+	background-color: #F2F2F2
+	& input
+		margin-left: 8px
+		border: none
+		background-color: transparent
+		width: 100%
+		font-size: 18px
+		&:focus
+			outline: none
+
+.search-icon
+	width: 24px
+
+.title-activity-type
+	font-size: 20px
+	font-weight: bold
+	margin-bottom: 8px
+	color: var(--red-active)
+
+.activity-type-list
+	display: grid
+	grid-template-columns: repeat(2, 1fr)
+
+.activity-type
+	display: flex
+	align-items: center
+	& input[type="checkbox"]
+		width: 16px
+		height: 16px
+		margin-right: 4px
+	& span
+		font-size: 18px
+		color: #4A4A4A
