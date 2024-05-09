@@ -85,6 +85,7 @@ export default function EventInfoArea() {
       dataPoints:RightChartData //json
     }]
   }
+  
   CanvasJS.addColorSet("redShades",
   [//colorSet Array
   "#FF0000", // Red
