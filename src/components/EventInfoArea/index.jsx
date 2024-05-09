@@ -109,7 +109,7 @@ export default function EventInfoArea() {
           {favorite
             ? <FavoriteIcon className="star-icon" onClick={() => setFavorite(false)} />
             : <NotFavoriteIcon className="star-icon" onClick={() => setFavorite(true)} />}
-          <h3>{eventData[eventId].name}</h3>
+          <h3>{currentEvent.name}</h3>
         </div>
         <div className="ai-signal">
           <ul className="tab-bar">
