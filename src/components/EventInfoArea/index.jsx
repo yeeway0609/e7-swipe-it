@@ -36,7 +36,7 @@ export default function EventInfoArea() {
       indexLabelFontSize: 16,
       dataPoints:PieChartData
     }]
-    
+
   }
   const Line_Chart = {
     animationEnabled: true,
@@ -64,7 +64,7 @@ export default function EventInfoArea() {
         { x: new Date(2012, 10, 1), y: 480 },
         { x: new Date(2012, 11, 1), y: 510 }
         ]
-    }]    
+    }]
   }
   const optionss = {
     //exportEnabled: true,
@@ -74,7 +74,7 @@ export default function EventInfoArea() {
     // title: {
     //   text: "歷史紀錄~"
     // },
-   
+
     data: [{
       type: "pie",
       startAngle: 150,
@@ -85,7 +85,7 @@ export default function EventInfoArea() {
       dataPoints:RightChartData //json
     }]
   }
-  
+
   CanvasJS.addColorSet("redShades",
   [//colorSet Array
   "#FF0000", // Red
@@ -97,7 +97,7 @@ export default function EventInfoArea() {
   "#A52A2A", // Brown
   "#D2691E", // Chocolate
   "#CD5C5C", // IndianRed
-  "#F08080"  // LightCoral               
+  "#F08080"  // LightCoral
   ]);
 
 
@@ -105,13 +105,12 @@ export default function EventInfoArea() {
     <section className="activity-info-section">
       <div className="activity-info-section-left">
         <div className="activity-intro">
+          {favorite
+            ? <FavoriteIcon className="star-icon" onClick={() => setFavorite(false)} />
+            : <NotFavoriteIcon className="star-icon" onClick={() => setFavorite(true)} />}
+          <h3>{eventData[eventId].name}</h3>
           <div className="activity-intro-title">
-            <h3>{eventData[eventId].name}</h3>
-            {favorite
-              ? <FavoriteIcon className="star-icon" onClick={() => setFavorite(false)} />
-              : <NotFavoriteIcon className="star-icon" onClick={() => setFavorite(true)} />}
           </div>
-          <p>{eventData[eventId].intro}</p>
         </div>
         <div className="ai-signal">
           <ul className="tab-bar">
@@ -137,14 +136,11 @@ export default function EventInfoArea() {
               <p>新聞熱搜關鍵字</p>
               <p>新聞連結</p>
             </div>
-            
           </div>
         </div>
       </div>
       <div className="activity-info-section-right">
         <div className="related-events">
-          
-
           <h3>相似活動</h3>
           {eventData[eventId].relatedEventsId.map((id) => {
             return (
@@ -181,6 +177,6 @@ export default function EventInfoArea() {
         </div>
       </div>
     </section>
-    
+
   );
 }
