@@ -17,7 +17,7 @@ export default function EventInfoArea() {
 
   var CanvasJS = CanvasJSReact.CanvasJS;
   var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-  
+  var CanvasJSChartRight = CanvasJSReact.CanvasJSChart;
   const options = {
     animationEnabled: true,
     interactivityEnabled: true,
@@ -48,7 +48,7 @@ export default function EventInfoArea() {
    
     data: [{
       type: "pie",
-      startAngle: 75,
+      startAngle: 175,
       legendText: "{label}",
       indexLabelFontSize: 16,
       width: 30 ,
@@ -133,9 +133,12 @@ export default function EventInfoArea() {
           </ul>
           <div className="history-records-info">
             歷史紀錄
-          </div>
+          </div >
          {/* add pie right   */}
-          
+         <div className="right_pie">
+         <CanvasJSChartRight options = {optionss}/>
+         </div>
+         
         </div>
       </div>
     </section>
