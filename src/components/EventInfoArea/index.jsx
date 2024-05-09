@@ -3,7 +3,10 @@ import { React, useState, useContext } from "react";
 import { EventIdContext } from "@/context/EventIdContext";
 import { StarIcon as NotFavoriteIcon } from "@heroicons/react/24/outline";
 import { StarIcon as FavoriteIcon } from "@heroicons/react/24/solid";
+import CanvasJSReact from '@canvasjs/react-charts';
 import eventData from "@/data/events.json";
+
+
 
 
 export default function EventInfoArea() {
@@ -13,6 +16,63 @@ export default function EventInfoArea() {
   const [aiTabActive, setAiTabActive] = useState("交通");
   const historyTab = ["歷史1", "歷史2", "歷史3", "歷史4"];
   const [historyTabActive, setHistoryTabActive] = useState("歷史1");
+
+  var CanvasJS = CanvasJSReact.CanvasJS;
+  var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+chart.render();
+  const options = {
+    exportEnabled: true,
+    animationEnabled: true,
+    title: {
+      text: "AI推薦訊號"
+    },
+   
+    data: [{
+      type: "pie",
+      startAngle: 75,
+      toolTipContent: "<b>{label}</b>: {y}%",
+      legendText: "{label}",
+      indexLabelFontSize: 16,
+      indexLabel: "{label} - {y}%",
+      dataPoints: [
+        { y: 18, label: "Direct" },
+        { y: 49, label: "Organic Search" },
+        { y: 9, label: "Paid Search" },
+        { y: 5, label: "Referral" },
+        { y: 19, label: "Social" }
+      ]
+    }]
+
+    
+  }
+  
+  const optionss = {
+    exportEnabled: true,
+    animationEnabled: true,
+    title: {
+      text: "歷史紀錄"
+    },
+   
+    data: [{
+      type: "pie",
+      startAngle: 75,
+      toolTipContent: "<b>{label}</b>: {y}%",
+      legendText: "{label}",
+      indexLabelFontSize: 16,
+      indexLabel: "{label} - {y}%",
+      dataPoints: [
+        { y: 50, label: "高鐵" },
+        { y: 25, label: "火車" },
+        { y: 20, label: "客運" },
+        { y: 5, label: "?" },
+        { y: 5, label: "??" }
+      ]
+    }]
+
+    
+  }
+
 
   return (
     <section className="activity-info-section">
@@ -41,12 +101,19 @@ export default function EventInfoArea() {
             })}
           </ul>
           <div className="ai-signal-info">
-            ai 訊號
+            <div className="pie">
+              <CanvasJSChart options = {options}
+              /* onRef={ref => this.chart = ref} */
+              />
+              {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+          </div>
           </div>
         </div>
       </div>
       <div className="activity-info-section-right">
         <div className="related-events">
+          
+
           <h3>相似活動</h3>
           {eventData[eventId].relatedEventsId.map((id) => {
             return (
@@ -76,6 +143,8 @@ export default function EventInfoArea() {
           <div className="history-records-info">
             歷史紀錄
           </div>
+         {/* add pie right   */}
+          
         </div>
       </div>
     </section>
