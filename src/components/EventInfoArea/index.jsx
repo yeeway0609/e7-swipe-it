@@ -27,7 +27,7 @@ export default function EventInfoArea() {
     highlightEnabled: true,
     explodeOnClick: true,
     colorSet:"redShades",
-    backgroundColor: "#F5DEB3",
+    backgroundColor: "#e0e0e0 ",
     width:200,
     height:200,
     data: [{
