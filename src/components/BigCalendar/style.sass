@@ -1,0 +1,49 @@
+#week-view-wrapper
+  width: 100%
+  height: 100%
+  overflow-x: auto
+  overflow-y: hidden
+  display: flex
+  flex-direction: column
+  border: 1px solid #666666
+  background-color: #F3F3F3
+  border-radius: 0 20px 20px 20px
+  #day-heading
+    display: flex
+    width: 100%
+    height: calc(100vh - 20px)
+    .currentMonth
+      // background-color: mediumpurple
+    .isToday
+      background-color: var(--red-inactive)
+    .day
+      min-width: calc(100% / 7 + 1px)
+      padding-top: 8px
+      display: flex
+      flex-direction: column
+      align-items: center
+      font-weight: 500
+      line-height: 29px
+      p
+        font-size: 24px
+      &:last-child
+        border-right: 0
+      .event-area
+        width: 90%
+        height: 100%
+        margin: 8px
+        background-color: #FCFCFC
+        border: 1px solid #969696
+        border-radius: 20px
+        display: flex
+        flex-direction: column
+        align-items: center
+        p
+          margin: 4px
+        span
+          width: 100%
+          border: 1px solid #969696
+    .day.Saturday, .day.Sunday
+      color: var(--red-active)
+
+
