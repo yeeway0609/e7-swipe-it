@@ -19,19 +19,20 @@ export default function EventInfoArea() {
   var CanvasJSChart = CanvasJSReact.CanvasJSChart;
   
   const options = {
-    exportEnabled: true,
     animationEnabled: true,
-    interactivityEnabled: false,
+    interactivityEnabled: true,
+    highlightEnabled: true,
+    explodeOnClick: true,
     colorSet:"redShades",
-    title: {
-      text: "AI推薦訊號"
-    },
+    backgroundColor: "#F5DEB3",
+    width:200,
+    height:200,
     data: [{
       type: "pie",
-      startAngle: 75,
-      legendText: "{label}",
+      startAngle: 0,
+			indexLabel: "{name}",
+      indexLabelPlacement: "inside",
       indexLabelFontSize: 16,
-      width: 30 ,
       dataPoints:PieChartData
     }]
     
@@ -78,13 +79,8 @@ export default function EventInfoArea() {
               );
             })}
           </ul>
-          <div className="ai-signal-info">
-            <div className="pie">
-              {/* <CanvasJSChart options = {options}
-                // onRef={ref => this.chart = ref}
-              /> */}
-              {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-            </div>
+          <div className="ai-signal-info-right">
+              <CanvasJSChart options = {options}/>
           </div>
         </div>
       </div>
@@ -121,7 +117,6 @@ export default function EventInfoArea() {
           </div>
         </div>
       </div>
-      <CanvasJSChart options = {options}/>
     </section>
     
   );
