@@ -7,16 +7,17 @@ class HeatMapComponent extends React.Component {
   constructor(props) {
     super(props);
     console.log(this.props); // => 如果前面兩個參數忘記加，這裡會無法存取
-    console.log('Title created');
   }
 
   render() {
     return (
       <div className='box'>
-        <p className='text'>活動地區</p>
-        <CheckboxSVGMap map={Taiwan}/>
+        <h2 className='text'>活動地區</h2>
+        <div className='map-container'>
+          <CheckboxSVGMap map={Taiwan}/>
+        </div>
       </div>
-      
+
     );
   }
 }

@@ -10,6 +10,7 @@ import RightChartData from "@/data/RightChartData.json";
 
 export default function EventInfoArea() {
   const { eventId, setEventId } = useContext(EventIdContext);
+  const currentEvent = eventData.find((event) => event.id === eventId);
   const [favorite, setFavorite] = useState(false);
   const aiSignalTab = ["交通", "住宿", "票券", "飲食"];
   const [aiTabActive, setAiTabActive] = useState("交通");
@@ -109,8 +110,6 @@ export default function EventInfoArea() {
             ? <FavoriteIcon className="star-icon" onClick={() => setFavorite(false)} />
             : <NotFavoriteIcon className="star-icon" onClick={() => setFavorite(true)} />}
           <h3>{eventData[eventId].name}</h3>
-          <div className="activity-intro-title">
-          </div>
         </div>
         <div className="ai-signal">
           <ul className="tab-bar">
@@ -142,14 +141,14 @@ export default function EventInfoArea() {
       <div className="activity-info-section-right">
         <div className="related-events">
           <h3>相似活動</h3>
-          {eventData[eventId].relatedEventsId.map((id) => {
+          {currentEvent.relatedEventsId.map((id) => {
             return (
               <button
                 key={id}
                 className="related-event-badge"
                 onClick={() => setEventId(id)}
               >
-                {eventData[id].name}
+                {eventData.find((event) => event.id === id).name}
               </button>);
           })}
         </div>
@@ -169,9 +168,9 @@ export default function EventInfoArea() {
           </ul>
           <div className="history-records-info">
             <h3>歷史紀錄</h3>
-              <div className="right_pie">
-                <CanvasJSChartRight options = {optionss}/>
-              </div>
+            <div className="right_pie">
+              <CanvasJSChartRight options = {optionss}/>
+            </div>
           </div >
 
         </div>
