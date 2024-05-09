@@ -23,17 +23,23 @@ export default function EventInfoArea() {
   const options = {
     //exportEnabled: true,
     animationEnabled: true,
-    interactivityEnabled: false,
+    interactivityEnabled: true,
+    highlightEnabled: true,
+    explodeOnClick: true,
     colorSet:"redShades",
-    title: {
-      text: "AI推薦訊號"
-    },
-   
+    backgroundColor: "#F5DEB3",
+    width:200,
+    height:200,
     data: [{
       type: "pie",
-      startAngle: 75,
-      legendText: "{label}",
+      startAngle: 0,
+			indexLabel: "{name}",
+      indexLabelPlacement: "inside",
       indexLabelFontSize: 16,
+      dataPoints:PieChartData
+    }]
+    
+
       width: 30 ,
       dataPoints:PieChartData//json
     }]
@@ -98,6 +104,8 @@ export default function EventInfoArea() {
               );
             })}
           </ul>
+          <div className="ai-signal-info-right">
+              <CanvasJSChart options = {options}/>
           <div className="ai-signal-info">
             <div className="pie">
             <CanvasJSChart options = {options}/>
