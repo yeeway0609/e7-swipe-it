@@ -1,0 +1,155 @@
+.add-activity
+  position: absolute
+  height: 100%
+  width: 100%
+  h1, h2, p, ul
+    font-weight: bold
+  h1
+    color: var(--red-active)
+    font-size: 24px
+  h2
+    color: var(--red-active)
+    font-size: 18px
+  p
+    color: #000000
+    font-size: 16px
+  ul
+    color: #000000
+    font-size: 16px
+  .gray-vector
+    display: flex
+    position: absolute
+    width: 90%
+    height: 75%
+    bottom: 10%
+    left: 50%
+    transform: translateX(-50%)
+    background-color: rgba(196, 196, 196, 0.1)
+    border-radius: 15px
+    box-shadow: 0 0 0 1px black
+    .form-insert
+      display: flex
+      flex-direction: column
+      margin-top: 1.5%
+      margin-left: 3%
+      height: 100%
+      width: 100%
+      .form
+        display: flex
+        width: 100%
+        height: 100%
+        .left-form
+          display: flex
+          flex-direction: column
+          margin-left: 30px
+          margin-top: 30px
+          width: 100%
+          height: 100%
+          .container
+            display: flex
+            width: 80%
+            height: 11%
+        .right-form
+          display: flex
+          flex-direction: column
+          margin-top: 30px
+          width: 100%
+          height: 100%
+          .container
+            display: flex
+            width: 80%
+            height: 25%
+          textarea
+            resize: none
+
+#activity-name
+  margin-left: 25px
+  background-color: rgba(196, 196, 196, 0.1)
+  padding: 3px
+  border-radius: 7px
+  width: 65%
+  height: 50%
+  border: 1px solid #000
+
+#possible-activity-name,#notes,#source
+  margin-left: 10px
+  background-color: rgba(196, 196, 196, 0.2)
+  padding: 3px
+  border-radius: 7px
+  height: 80%
+  border: 1px solid #000
+  flex-grow: 1
+
+#source
+  height: 90%
+
+input[type="date"]
+  border: 1px solid #000
+  background-color: rgba(196, 196, 196, 0.2)
+  border-radius: 7px
+  height: 50%
+  width: 35%
+  padding: 3px
+  font-size: 16px
+
+#endDay
+  margin-top:-10px
+
+.selectList
+  border: 1px solid #000
+  background-color: rgba(196, 196, 196, 0.2)
+  border-radius: 7px
+  height: 50%
+  width: 35%
+  padding: 3px
+  font-size: 16px
+
+#similar-activity
+  width: 100%
+  height: 40%
+
+.related-activity-grid
+  margin-left: 25px
+  display: grid
+  grid-template-columns: repeat(2, 1fr)
+  grid-gap: 15px
+
+.related-activity-grid button
+  background-color: rgba(196, 196, 196, 0.2)
+  padding: 3px
+  border-radius: 7px
+  height: 100%
+  border: 1px solid #000
+  list-style: none
+  font-size: 16px
+  cursor: pointer
+
+.related-activity-grid button.clicked
+  background-color: var(--red-active)
+  color: white
+
+.submit-button
+  position: relative
+  border: 1px solid #000
+  background-color: var(--red-active)
+  color: white
+  height: 90%
+  width: 18%
+  left: 45%
+  transform: translateX(-50%)
+  padding: 4px
+  border-radius: 20px
+  cursor: pointer
+  font-weight: bold
+
+.submit-section
+  height: 20%
+  position: relative
+  p
+    font-weight: bold
+    position: absolute
+    color: #000000
+    left: 45%
+    transform: translateX(-50%)
+
+
