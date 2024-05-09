@@ -6,6 +6,7 @@ import { StarIcon as FavoriteIcon } from "@heroicons/react/24/solid";
 import CanvasJSReact from '@canvasjs/react-charts';
 import eventData from "@/data/events.json";
 import PieChartData from "@/data/PieChartData.json";
+import RightChartData from "@/data/RightChartData.json";
 
 export default function EventInfoArea() {
   const { eventId, setEventId } = useContext(EventIdContext);
@@ -68,7 +69,7 @@ export default function EventInfoArea() {
   const optionss = {
     //exportEnabled: true,
     animationEnabled: true,
-    interactivityEnabled: false,
+    interactivityEnabled: true,
     colorSet:"redShades",
     // title: {
     //   text: "歷史紀錄~"
@@ -76,11 +77,12 @@ export default function EventInfoArea() {
    
     data: [{
       type: "pie",
-      startAngle: 175,
-      legendText: "{label}",
+      startAngle: 150,
+      indexLabel: "{2023}",
+      indexLabelPlacement: "inside",
       indexLabelFontSize: 16,
       width: 30 ,
-      dataPoints:PieChartData//json
+      dataPoints:RightChartData //json
     }]
   }
   CanvasJS.addColorSet("redShades",
