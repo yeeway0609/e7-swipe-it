@@ -86,6 +86,8 @@ export default function EventInfoArea() {
       </div>
       <div className="activity-info-section-right">
         <div className="related-events">
+          
+
           <h3>相似活動</h3>
           {eventData[eventId].relatedEventsId.map((id) => {
             return (
@@ -115,6 +117,8 @@ export default function EventInfoArea() {
           <div className="history-records-info">
             歷史紀錄
           </div>
+         {/* add pie right   */}
+          
         </div>
       </div>
     </section>
