@@ -2,10 +2,13 @@
 
 import "./style.sass";
 import React, { useState, useRef, useEffect, useContext } from "react";
+import eventData from "@/data/events.json";
+import { EventIdContext } from "@/context/EventIdContext";
 import { SelectedDateContext } from "@/context/SelectedDateContext";
 
 export default function BigCalendar() {
   const { selectedDate } = useContext(SelectedDateContext);
+  const { eventId, setEventId } = useContext(EventIdContext);
 
   // 在組件初次渲染時滾動到當天日期的元素
   useEffect(() => {
@@ -45,7 +48,7 @@ export default function BigCalendar() {
       +inputDate.getDate() < 10
         ? "0" + inputDate.getDate()
         : inputDate.getDate();
-    return inputDate.getFullYear() + "/" + month + "/" + date;
+    return inputDate.getFullYear() + "-" + month + "-" + date;
   }
 
   // 計算兩個日期之間的天數
@@ -99,10 +102,10 @@ export default function BigCalendar() {
   let days = weekDays(new Date(dateRange[0]), new Date(dateRange[1]));
 
   // 處理水平滾動事件的函式
-  const handleHorizontalScroll = () => {
-    let e = document.getElementById("week-view-wrapper");
-    let dayWidth = ((window.innerWidth - 10) / 7 + 1).toFixed(2); // 計算每天的 div 寬度
+  let e = document.getElementById("week-view-wrapper");
+  let dayWidth = ((window.innerWidth - 10) / 7 + 1).toFixed(2); // 計算每天的 div 寬度
 
+  const handleHorizontalScroll = () => {
     // 如果滾動到最右側，則增加後一個月的日期範圍
     if (Math.ceil(e.scrollLeft) + e.clientWidth >= e.scrollWidth) {
       let date = new Date(dateRange[1]);
@@ -151,10 +154,32 @@ export default function BigCalendar() {
               }
             >
               <p>{day.dayName.substring(0, 3)}</p>
-              <div className="event-area">
+              <div className="date-col">
                 <p>{day.formatDate.substring(5)}</p>
                 <span></span>
-                <div></div>
+                <div className="event-area">
+                  {eventData.map((event, index) => {
+                    if (event.startDate == day.formatDate) {
+                      const startDate = new Date(event.startDate);
+                      const endDate = new Date(event.endDate);
+                      const durationDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+                      const width = durationDays * 102;
+
+                      return (
+                        <div
+                          key={index}
+                          className="event"
+                          onClick={() => setEventId(event.id)}
+                          style={{ width: `${width}%` }}
+                        >
+                          {event.name}
+                        </div>
+                      );
+                    } else {
+                      return <div key={index} className="no-event"></div>;
+                    }
+                  })}
+                </div>
               </div>
             </div>
           );
