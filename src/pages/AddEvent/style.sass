@@ -2,6 +2,20 @@
   position: absolute
   height: 100%
   width: 100%
+  h1, h2, p, ul
+    font-weight: bold
+  h1
+    color: var(--red-active)
+    font-size: 24px
+  h2
+    color: var(--red-active)
+    font-size: 18px
+  p
+    color: #000000
+    font-size: 16px
+  ul
+    color: #000000
+    font-size: 16px
   .gray-vector
     display: flex
     position: absolute
@@ -45,6 +59,8 @@
             display: flex
             width: 80%
             height: 25%
+          textarea
+            resize: none
 
 #activity-name
   margin-left: 25px
@@ -54,7 +70,6 @@
   width: 65%
   height: 50%
   border: 1px solid #000
-
 
 #possible-activity-name,#notes,#source
   margin-left: 10px
@@ -80,7 +95,7 @@ input[type="date"]
 #endDay
   margin-top:-10px
 
-select
+.selectList
   border: 1px solid #000
   background-color: rgba(196, 196, 196, 0.2)
   border-radius: 7px
@@ -113,7 +128,6 @@ select
   background-color: var(--red-active)
   color: white
 
-
 .submit-button
   position: relative
   border: 1px solid #000
@@ -138,26 +152,4 @@ select
     left: 45%
     transform: translateX(-50%)
 
-.add-activity h2
-  color: var(--red-active)
-  font-size: 24px
-  width: 100%
-  font-weight: bold
 
-.add-activity h1
-  color: var(--red-active)
-  font-size: 18px
-  font-weight: bold
-
-.add-activity p
-  color: #000000
-  font-size: 16px
-  font-weight: bold
-
-.add-activity ul
-  color: #000000
-  font-size: 16px
-  font-weight: bold
-
-textarea
-  resize: none

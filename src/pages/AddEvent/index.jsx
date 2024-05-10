@@ -58,15 +58,15 @@ export default function AddEvent() {
     <div className="add-activity">
       <div className="gray-vector">
         <div className="form-insert">
-          <h2>活動匯入</h2>
+          <h1>活動匯入</h1>
           <div className="form">
             <div className="left-form">
               <div className="container" id="container-1">
-                <h1>活動名稱 </h1>
+                <h2>活動名稱 </h2>
                 <input type="text" id="activity-name"></input>
               </div>
               <div className="container">
-                <h1>開始日期</h1>
+                <h2>開始日期</h2>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;起&nbsp;&nbsp;</p>
                 <input
                   type="date"
@@ -84,8 +84,8 @@ export default function AddEvent() {
                 />
               </div>
               <div className="container">
-                <h1>活動地點</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;縣市&nbsp;&nbsp;</p>
-                <select id="city" value={selectedCity} onChange={handleCityChange}>
+                <h2>活動地點</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;縣市&nbsp;&nbsp;</p>
+                <select id="city" className="selectList" value={selectedCity} onChange={handleCityChange}>
                   <option value=""></option>
                   <optgroup label="直轄市">
                     <option value="臺北市">臺北市</option>
@@ -115,15 +115,15 @@ export default function AddEvent() {
                 </select>
               </div>
               <div className="container">
-                <h1>活動類型</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                <select id="activity" value={selectedActivity} onChange={handleActivityChange}>
+                <h2>活動類型</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <select id="activity" className="selectList" value={selectedActivity} onChange={handleActivityChange}>
                   {activityTypes.map((type, idx) => (
                     <option key={idx} value={type}>{type}</option>
                   ))}
                 </select>
               </div>
               <div className="container" id="similar-activity">
-                <h1>相似活動</h1>
+                <h2>相似活動</h2>
                 {relatedActivity.length > 0 && (
                   <div>
                     <ul className="related-activity-grid">
@@ -141,19 +141,17 @@ export default function AddEvent() {
                 )}
               </div>
             </div>
-
-
             <div className="right-form">
               <div className="container">
-                <h1>可能專案  </h1>
+                <h2>可能專案  </h2>
                 <textarea type="text" id="possible-activity-name"></textarea>
               </div>
               <div className="container">
-                <h1>備註&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+                <h2>備註&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
                 <textarea type="text" id="notes"></textarea>
               </div>
               <div className="container">
-                <h1>資料來源</h1>
+                <h2>資料來源</h2>
                 <textarea  type="text" id="source"></textarea >
               </div>
               <div className="submit-section">
