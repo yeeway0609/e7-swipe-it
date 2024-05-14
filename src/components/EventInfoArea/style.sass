@@ -22,29 +22,30 @@
 
 // 活動介紹
 .activity-intro
-	background-color: var(--red-inactive)
-	border-radius: 12px
+	padding-top: 4px
+	padding-bottom: 6px
 	margin-bottom: 16px
-	padding: 16px
-
-.activity-intro-title
-	margin-bottom: 8px
 	display: flex
-	justify-content: space-between
+	border-bottom: 10px solid var(--red-active)
 	h3
-		font-size: 24px
+		margin-left: 8px
+		font-size: 30px
+		font-weight: 400
 	.star-icon
-		width: 26px
+		width: 32px
 		cursor: pointer
 
 // 相似活動
 .related-events
-	background-color: var(--bg-gray)
-	border-radius: 12px
+	border: 1px solid #000000
+	border-radius: 10px
 	padding: 16px
 	margin-bottom: 8px
 	display: flex
 	gap: 8px
+	h3
+		font-weight: 300
+		color: #535353
 
 .related-event-badge
 	background-color: var(--red-inactive)
@@ -54,9 +55,33 @@
 	border-radius: 4px
 	cursor: pointer
 
-// AI 訊號
-.ai-signal-info, .history-records-info
+//history訊號
+.history-records-info
 	background-color: var(--bg-gray)
 	border-radius: 0 12px 12px
 	padding: 16px
-	height: 200px
+	height: 1000px
+// AI 訊號
+.ai-signal-info-right
+	background-color: var(--bg-gray)
+	border-radius: 0 12px 12px
+	padding: 16px
+	height: 600px
+.pie
+	position: relative
+	left: 5px
+	width: 50%
+	height: 50%
+
+.right_pie
+	position: relative
+	left: 7px
+	width: 40%
+	height: 40%
+
+.container
+	display: flex
+	flex-wrap: wrap
+
+.canvasjs-chart-credit
+	display: none
