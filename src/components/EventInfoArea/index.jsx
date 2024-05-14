@@ -3,8 +3,8 @@ import { React, useState, useContext } from "react";
 import { EventIdContext } from "@/context/EventIdContext";
 import { StarIcon as NotFavoriteIcon } from "@heroicons/react/24/outline";
 import { StarIcon as FavoriteIcon } from "@heroicons/react/24/solid";
-import CanvasJSReact from '@canvasjs/react-charts';
 import eventData from "@/data/events.json";
+import CanvasJSReact from "@canvasjs/react-charts";
 import PieChartData from "@/data/PieChartData.json";
 import RightChartData from "@/data/RightChartData.json";
 
@@ -101,7 +101,6 @@ export default function EventInfoArea() {
   "#F08080"  // LightCoral
   ]);
 
-
   return (
     <section className="activity-info-section">
       <div className="activity-info-section-left">
@@ -172,10 +171,8 @@ export default function EventInfoArea() {
               <CanvasJSChartRight options = {optionss}/>
             </div>
           </div >
-
         </div>
       </div>
     </section>
-
   );
 }
