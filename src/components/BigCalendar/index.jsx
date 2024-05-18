@@ -1,5 +1,3 @@
-// To do: 目前必須要先滾動到最兩側才能夠增加日期，但是就要在點擊小月曆前先滾動兩側才能換日期
-
 import "./style.sass";
 import React, { useState, useRef, useEffect, useContext } from "react";
 import eventData from "@/data/events.json";
@@ -7,6 +5,21 @@ import { EventIdContext } from "@/context/EventIdContext";
 import { SelectedDateContext } from "@/context/SelectedDateContext";
 
 export default function BigCalendar() {
+  const [eventsInfo, setEventsInfo] = useState([]);
+  async function fetchEvents() {
+    try {
+      const response = await fetch('http://luffy.ee.ncku.edu.tw:4445/events-info');
+      const data = await response.json();
+      setEventsInfo(data);
+    } catch (error) {
+      console.error('Error fetching events\' info:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
   const { selectedDate } = useContext(SelectedDateContext);
   const { eventId, setEventId } = useContext(EventIdContext);
 
@@ -112,21 +125,22 @@ export default function BigCalendar() {
                 <p>{day.formatDate.substring(5)}</p>
                 <span></span>
                 <div className="event-area">
-                  {eventData.map((event, index) => {
-                    if (event.startDate == day.formatDate) {
-                      const startDate = new Date(event.startDate);
-                      const endDate = new Date(event.endDate);
+                  {eventsInfo.map((event) => {
+                    const startDate = new Date(event.start_date); // Tue Apr 09 2024 00:00:00 GMT+0800 (Taipei Standard Time)
+                    const endDate = new Date(event.end_date);
+
+                    if (formatDates(startDate) == day.formatDate) {
                       const durationDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
                       const width = durationDays * 102;
 
                       return (
                         <div
-                          key={index}
+                          key={event.id}
                           className="event"
                           onClick={() => setEventId(event.id)}
                           style={{
                             width: `${width}%`,
-                            backgroundColor: eventColor[event.eventType],
+                            backgroundColor: eventColor[event.type],
                             border: (event.id === eventId) ? "3px solid black" : "none"
                           }}
                         >
@@ -134,7 +148,7 @@ export default function BigCalendar() {
                         </div>
                       );
                     } else {
-                      return <div key={index} className="no-event"></div>;
+                      return <div key={event.id} className="no-event"></div>;
                     }
                   })}
                 </div>
