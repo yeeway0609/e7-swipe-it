@@ -1,6 +1,5 @@
 import "./style.sass";
 import React, { useState, useRef, useEffect, useContext } from "react";
-import eventData from "@/data/events.json";
 import { EventIdContext } from "@/context/EventIdContext";
 import { SelectedDateContext } from "@/context/SelectedDateContext";
 
@@ -75,7 +74,7 @@ export default function BigCalendar() {
   // 使用 useState 來儲存整個日曆的起始結束範圍
   const firstDay = "2024-01-01";
   const lastDay = "2024-12-31";
-  const [dateRange, setDateRange] = useState([firstDay, lastDay]);
+  const [dateRange] = useState([firstDay, lastDay]);
 
   // 生成指定日期範圍內每天的資訊陣列
   function weekDays(loopDate, loopEndDate) {
