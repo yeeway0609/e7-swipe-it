@@ -1,9 +1,54 @@
 import "./style.sass";
-import {React,useState } from "react";
+import React, { useState } from "react";
 
 export default function AddEvent() {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [Id, setId] = useState(''); // Id
+  const [ActivityName, setActivityName] = useState(''); // 活動名稱
+  const [startDate, setStartDate] = useState(''); // 起始日
+  const [endDate, setEndDate] = useState(''); // 結束日
+  const [selectedCity, setSelectedCity] = useState(''); // 活動地點
+  const [selectedActivity, setSelectedActivity] = useState(''); // 活動類型
+  const [Related_events_id, setRelated_events_id] = useState(''); // Related_events_id
+  const [News_trend, setNews_trend] = useState(''); // News_trend
+  const [Top5_products, setTop5_products] = useState(''); // Top5_products
+  const [isSubmitted, setIsSubmitted] = useState(false); // 新增此狀態來追蹤是否已提交
+
+  const handleSubmit = async () => {
+    const eventData = {
+      id: Id,
+      name: ActivityName,
+      location: selectedCity,
+      type: selectedActivity,
+      start_date: startDate,
+      end_date: endDate,
+      related_events_id: Related_events_id,
+      news_trend: News_trend,
+      top5_products: Top5_products
+    };
+
+    try {
+      const response = await fetch('http://luffy.ee.ncku.edu.tw:4445/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData)
+      });
+
+      if (response.ok) {
+        console.log('數據提交成功');
+        setIsSubmitted(true); // 設置 isSubmitted 為 true
+      } else {
+        console.error('數據提交失敗');
+      }
+    } catch (error) {
+      console.error('發送請求時出現錯誤', error);
+    }
+  };
+
+  const handleActivityNameChange = (event) => {
+    setActivityName(event.target.value);
+  };
 
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
@@ -13,12 +58,27 @@ export default function AddEvent() {
     setEndDate(event.target.value);
   };
 
-  const [selectedCity, setSelectedCity] = useState("");
-
   const handleCityChange = (event) => {
     setSelectedCity(event.target.value);
   };
-  const activityTypes = ["", "工商展覽(B2B)", "工商展覽(B2C)", "藝文展覽", "藝文表演", "演唱會(大型)", "演唱會(小型)","音樂祭"];
+
+  const handleRelated_events_idChange = (event) => {
+    setRelated_events_id(event.target.value);
+  };
+
+  const handleNews_trendChange = (event) => {
+    setNews_trend(event.target.value);
+  };
+
+  const handleTop5_productsChange = (event) => {
+    setTop5_products(event.target.value);
+  };
+
+  const handleIdChange = (event) => {
+    setId(event.target.value);
+  };
+
+  const activityTypes = ["", "工商展覽(B2B)", "工商展覽(B2C)", "藝文展覽", "藝文表演", "演唱會(大型)", "演唱會(小型)", "音樂祭"];
   const relatedActivities = {
     "工商展覽(B2B)": ["半導體展", "螺絲展", "電腦展"],
     "工商展覽(B2C)": ["家具展", "汽車展", "機車展"],
@@ -26,11 +86,11 @@ export default function AddEvent() {
     "藝文表演": ["M3 DAMM", "把我娶回家", "草草戲劇節"],
     "演唱會(大型)": ["告五人演唱會", "宇宙人演唱會"],
     "演唱會(小型)": ["迷路人演唱會"],
-    "音樂祭": ["共生音樂節","S2O潑水音樂節","台灣祭","浮現祭","大港開唱"],
+    "音樂祭": ["共生音樂節", "S2O潑水音樂節", "台灣祭", "浮現祭", "大港開唱"],
   };
 
-  const [selectedActivity, setSelectedActivity] = useState("");
   const [relatedActivity, setRelatedActivity] = useState([]);
+  const [clickedRelativeButtons, setClickedRelativeButtons] = useState([]);
 
   const handleActivityChange = (event) => {
     const selectedType = event.target.value;
@@ -39,7 +99,6 @@ export default function AddEvent() {
     setClickedRelativeButtons([]);
   };
 
-  const [clickedRelativeButtons, setClickedRelativeButtons] = useState([]);
   const handleRelativeButtonClick = (idx) => {
     const isClicked = clickedRelativeButtons.includes(idx);
     if (isClicked) {
@@ -49,11 +108,6 @@ export default function AddEvent() {
     }
   };
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const handleSubmit = () => {
-    setIsSubmitted(true);
-  };
-
   return (
     <div className="add-activity">
       <div className="gray-vector">
@@ -61,13 +115,28 @@ export default function AddEvent() {
           <h1>活動匯入</h1>
           <div className="form">
             <div className="left-form">
+              <div className="container">
+                <h2>id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+                <input
+                  type="number"
+                  id="id"
+                  value={Id}
+                  onChange={handleIdChange}
+                  autoComplete="off"
+                />
+              </div>
               <div className="container" id="container-1">
-                <h2>活動名稱 </h2>
-                <input type="text" id="activity-name"></input>
+                <h2>活動名稱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+                <input
+                  type="text"
+                  id="activity-name"
+                  value={ActivityName}
+                  onChange={handleActivityNameChange}
+                />
               </div>
               <div className="container">
-                <h2>開始日期</h2>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;起&nbsp;&nbsp;</p>
+                <h2>活動時間</h2>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;起&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                 <input
                   type="date"
                   value={startDate}
@@ -75,8 +144,7 @@ export default function AddEvent() {
                 />
               </div>
               <div className="container" id="endDay">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;訖&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;訖&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                 <input
                   type="date"
                   value={endDate}
@@ -143,19 +211,31 @@ export default function AddEvent() {
             </div>
             <div className="right-form">
               <div className="container">
-                <h2>可能專案  </h2>
-                <textarea type="text" id="possible-activity-name"></textarea>
+                <h2>related_events_id&nbsp;&nbsp;&nbsp;</h2>
+                <textarea
+                  id="related_events_id"
+                  value={Related_events_id}
+                  onChange={handleRelated_events_idChange}
+                />
               </div>
               <div className="container">
-                <h2>備註&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
-                <textarea type="text" id="notes"></textarea>
+                <h2>news_trend&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+                <textarea
+                  id="news_trend"
+                  value={News_trend}
+                  onChange={handleNews_trendChange}
+                />
               </div>
               <div className="container">
-                <h2>資料來源</h2>
-                <textarea  type="text" id="source"></textarea >
+                <h2>top5_products&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+                <textarea
+                  id="top5_products"
+                  value={Top5_products}
+                  onChange={handleTop5_productsChange}
+                />
               </div>
               <div className="submit-section">
-                <div>{isSubmitted ? (<p>已提交</p>) : (<button className="submit-button" onClick={handleSubmit}>提交</button> )}</div>
+                <div>{isSubmitted ? (<p>已提交</p>) : (<button className="submit-button" onClick={handleSubmit}>提交</button>)}</div>
               </div>
             </div>
           </div>
