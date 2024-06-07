@@ -1,5 +1,5 @@
 import "./style.sass";
-import { React, useState, useContext } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import { EventIdContext } from "@/context/EventIdContext";
 import { StarIcon as NotFavoriteIcon } from "@heroicons/react/24/outline";
 import { StarIcon as FavoriteIcon } from "@heroicons/react/24/solid";
@@ -10,7 +10,36 @@ import RightChartData from "@/data/RightChartData.json";
 
 export default function EventInfoArea() {
   const { eventId, setEventId } = useContext(EventIdContext);
-  const currentEvent = eventData.find((event) => event.id === eventId);
+
+  // TOOD: fetch event by id
+  // async function fetchEventByID(id) {
+  //   try {
+  //     const response = await fetch(`http://luffy.ee.ncku.edu.tw:4445/events/${id}`);
+  //     const data = await response.json();
+  //     return data;
+  //   } catch (error) {
+  //     console.error('Error fetching events\' info:', error);
+  //   }
+  // }
+
+  async function handleCurrentEvent() {
+    try {
+      const response = await fetch(`http://luffy.ee.ncku.edu.tw:4445/events/${eventId}`);
+      const data = await response.json();
+      setCurrentEvent(data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching events\' info:', error);
+    }
+  }
+
+  useEffect(() => {
+    handleCurrentEvent();
+  }, [eventId]);
+
+  const [currentEvent, setCurrentEvent] = useState(eventData[0]);
+
+
   const [favorite, setFavorite] = useState(false);
   const aiSignalTab = ["交通", "住宿", "票券", "飲食"];
   const [aiTabActive, setAiTabActive] = useState("交通");
@@ -140,16 +169,19 @@ export default function EventInfoArea() {
       <div className="activity-info-section-right">
         <div className="related-events">
           <h3>相似活動</h3>
-          {currentEvent.relatedEventsId.map((id) => {
+          {/* {currentEvent.related_events_id.map((id) => {
+            const eventName = fetchEventByID(id).name;
+            console.log('eventName', eventName);
+
             return (
               <button
                 key={id}
                 className="related-event-badge"
                 onClick={() => setEventId(id)}
               >
-                {eventData.find((event) => event.id === id).name}
+                {eventName}
               </button>);
-          })}
+          })} */}
         </div>
         <div className="history-records">
           <ul className="tab-bar">

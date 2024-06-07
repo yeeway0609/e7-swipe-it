@@ -2,14 +2,17 @@ import "./style.sass";
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { EventIdContext } from "@/context/EventIdContext";
 import { SelectedDateContext } from "@/context/SelectedDateContext";
+import eventData from "@/data/events.json";
 
 export default function BigCalendar() {
-  const [eventsInfo, setEventsInfo] = useState([]);
+  const [eventsInfo, setEventsInfo] = useState(eventData);
   async function fetchEvents() {
     try {
       const response = await fetch('http://luffy.ee.ncku.edu.tw:4445/events-info');
       const data = await response.json();
+      console.log(data);
       setEventsInfo(data);
+
     } catch (error) {
       console.error('Error fetching events\' info:', error);
     }
@@ -136,7 +139,10 @@ export default function BigCalendar() {
                         <div
                           key={event.id}
                           className="event"
-                          onClick={() => setEventId(event.id)}
+                          onClick={() => {
+                            console.log(event.id);
+                            setEventId(event.id);
+                          }}
                           style={{
                             width: `${width}%`,
                             backgroundColor: eventColor[event.type],
