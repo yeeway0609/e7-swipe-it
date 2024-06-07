@@ -36,31 +36,44 @@
       width: 100%
       .form
         display: flex
+        flex-direction: column
         width: 100%
         height: 100%
-        .left-form
+        .up-form
           display: flex
-          flex-direction: column
-          margin-left: 30px
-          margin-top: 30px
           width: 100%
           height: 100%
+          .left-form
+            display: flex
+            flex-direction: column
+            margin-left: 30px
+            margin-top: 30px
+            width: 100%
+            height: 100%
+            .container
+              display: flex
+              width: 80%
+              height: 15%
+          .right-form
+            display: flex
+            flex-direction: column
+            margin-top: 30px
+            width: 100%
+            height: 100%
+            .container
+              display: flex
+              width: 80%
+              height: 38%
+            textarea
+              resize: none
+        .down-form
+          display: flex
+          width: 100%
+          height: 50%
           .container
             display: flex
             width: 80%
             height: 11%
-        .right-form
-          display: flex
-          flex-direction: column
-          margin-top: 30px
-          width: 100%
-          height: 100%
-          .container
-            display: flex
-            width: 80%
-            height: 25%
-          textarea
-            resize: none
 
 #activity-name
   margin-left: 25px
@@ -70,8 +83,8 @@
   width: 65%
   height: 50%
   border: 1px solid #000
-
-#possible-activity-name,#notes,#source
+  
+#related_events_id,#news_trend,#top5_products
   margin-left: 10px
   background-color: rgba(196, 196, 196, 0.2)
   padding: 3px
@@ -80,7 +93,7 @@
   border: 1px solid #000
   flex-grow: 1
 
-#source
+#top5_products
   height: 90%
 
 input[type="date"]
@@ -111,7 +124,7 @@ input[type="date"]
 .related-activity-grid
   margin-left: 25px
   display: grid
-  grid-template-columns: repeat(2, 1fr)
+  grid-template-columns: repeat(6, 1fr)
   grid-gap: 15px
 
 .related-activity-grid button
@@ -135,7 +148,7 @@ input[type="date"]
   color: white
   height: 90%
   width: 18%
-  left: 45%
+  left: 50%
   transform: translateX(-50%)
   padding: 4px
   border-radius: 20px
