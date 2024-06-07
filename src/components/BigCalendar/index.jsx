@@ -53,7 +53,7 @@ export default function BigCalendar() {
       const targetElement = document.getElementById(targetDay.formatDate);
 
       if (targetElement) {
-        console.log(targetElement);
+        // console.log(targetElement);
         targetElement.scrollIntoView({
           behavior: "instant",
           inline: "center",

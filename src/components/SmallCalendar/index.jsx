@@ -16,7 +16,6 @@ export default function SmallCalendar() {
         onChange={item => {
           setDate(item);
           setSelectedDate(item);
-          console.log(selectedDate);
         }}
       />
     </div>
