@@ -1,7 +1,7 @@
 import React from 'react';
 import { CheckboxSVGMap } from 'react-svg-map';
 import Taiwan from '@svg-maps/taiwan.main';
-import './index.css';
+import './style.sass';
 
 class HeatMapComponent extends React.Component {
   constructor(props) {

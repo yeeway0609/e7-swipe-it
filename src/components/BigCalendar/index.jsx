@@ -26,9 +26,9 @@ export default function BigCalendar() {
   const { eventId, setEventId } = useContext(EventIdContext);
 
   const eventColor = {
-    "音樂祭": "#DA0000",
-    "演唱會(大型)": "#DA0000",
-    "演唱會(小型)": "#DA0000",
+    "音樂祭": "#F9A060",
+    "演唱會(大型)": "#F9A060",
+    "演唱會(小型)": "#F9A060",
     "藝文表演": "#3D8B00",
     "藝文展覽": "#3D8B00",
     "工商展覽(B2B)": "#0011A4",
@@ -103,11 +103,7 @@ export default function BigCalendar() {
   const days = weekDays(new Date(dateRange[0]), new Date(dateRange[1]));
 
   return (
-    <div
-      className="leave-calendar-content slide"
-      id="week-view-wrapper"
-      ref={parentRef}
-    >
+    <div id="week-view-wrapper" ref={parentRef}>
       <div id="day-heading">
         {days.map((day, index) => {
           return (

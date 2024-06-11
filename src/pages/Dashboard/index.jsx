@@ -4,7 +4,7 @@ import EventInfoArea from "@/components/EventInfoArea";
 import SearchPanel from "@/components/SearchPanel";
 import SmallCalendar from "@/components/SmallCalendar";
 import BigCalendar from "@/components/BigCalendar";
-import HeatMapComponent from "@/components/heat";
+import HeatMapComponent from "@/components/HeatMap";
 
 export default function Dashboard() {
   return (
