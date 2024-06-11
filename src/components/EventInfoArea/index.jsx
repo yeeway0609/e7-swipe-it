@@ -3,42 +3,40 @@ import { React, useState, useContext, useEffect } from "react";
 import { EventIdContext } from "@/context/EventIdContext";
 import { StarIcon as NotFavoriteIcon } from "@heroicons/react/24/outline";
 import { StarIcon as FavoriteIcon } from "@heroicons/react/24/solid";
-import eventData from "@/data/events.json";
 import CanvasJSReact from "@canvasjs/react-charts";
 import PieChartData from "@/data/PieChartData.json";
 import RightChartData from "@/data/RightChartData.json";
 
 export default function EventInfoArea() {
-  const { eventId, setEventId } = useContext(EventIdContext);
+  const {eventId, setEventId} = useContext(EventIdContext);
+  const [currentEvent, setCurrentEvent] = useState(null);
+  const [relatedEvents, setRelatedEvents] = useState(null);
 
-  // TOOD: fetch event by id
-  // async function fetchEventByID(id) {
-  //   try {
-  //     const response = await fetch(`http://luffy.ee.ncku.edu.tw:4445/events/${id}`);
-  //     const data = await response.json();
-  //     return data;
-  //   } catch (error) {
-  //     console.error('Error fetching events\' info:', error);
-  //   }
-  // }
-
-  async function handleCurrentEvent() {
+  async function fetchEventByID(id) {
     try {
-      const response = await fetch(`http://luffy.ee.ncku.edu.tw:4445/events/${eventId}`);
+      const response = await fetch(`http://luffy.ee.ncku.edu.tw:4445/events/${id}`);
       const data = await response.json();
-      setCurrentEvent(data);
       return data;
     } catch (error) {
       console.error('Error fetching events\' info:', error);
     }
   }
 
+  async function handleCurrentEvent() {
+    const data = await fetchEventByID(eventId);
+    setCurrentEvent(data);
+
+    if (data && data.related_events_id) {
+      const relatedEventsIds = JSON.parse(data.related_events_id);
+      const relatedEventsPromises = relatedEventsIds.map(id => fetchEventByID(id));
+      const relatedEventsData = await Promise.all(relatedEventsPromises);
+      setRelatedEvents(relatedEventsData);
+    }
+  }
+
   useEffect(() => {
     handleCurrentEvent();
   }, [eventId]);
-
-  const [currentEvent, setCurrentEvent] = useState(eventData[0]);
-
 
   const [favorite, setFavorite] = useState(false);
   const aiSignalTab = ["交通", "住宿", "票券", "飲食"];
@@ -61,13 +59,13 @@ export default function EventInfoArea() {
     data: [{
       type: "pie",
       startAngle: 0,
-			indexLabel: "{name}",
+      indexLabel: "{name}",
       indexLabelPlacement: "inside",
       indexLabelFontSize: 16,
       dataPoints:PieChartData
     }]
+  };
 
-  }
   const Line_Chart = {
     animationEnabled: true,
     interactivityEnabled: true,
@@ -93,9 +91,10 @@ export default function EventInfoArea() {
         { x: new Date(2012, 9, 1), y: 500 },
         { x: new Date(2012, 10, 1), y: 480 },
         { x: new Date(2012, 11, 1), y: 510 }
-        ]
+      ]
     }]
-  }
+  };
+
   const optionss = {
     //exportEnabled: true,
     animationEnabled: true,
@@ -114,21 +113,21 @@ export default function EventInfoArea() {
       width: 30 ,
       dataPoints:RightChartData //json
     }]
-  }
+  };
 
   CanvasJS.addColorSet("redShades",
-  [//colorSet Array
-  "#FF0000", // Red
-  "#FF6347", // Tomato
-  "#FF4500", // OrangeRed
-  "#DC143C", // Crimson
-  "#B22222", // FireBrick
-  "#8B0000", // DarkRed
-  "#A52A2A", // Brown
-  "#D2691E", // Chocolate
-  "#CD5C5C", // IndianRed
-  "#F08080"  // LightCoral
-  ]);
+    [//colorSet Array
+      "#FF0000", // Red
+      "#FF6347", // Tomato
+      "#FF4500", // OrangeRed
+      "#DC143C", // Crimson
+      "#B22222", // FireBrick
+      "#8B0000", // DarkRed
+      "#A52A2A", // Brown
+      "#D2691E", // Chocolate
+      "#CD5C5C", // IndianRed
+      "#F08080"  // LightCoral
+    ]);
 
   return (
     <section className="activity-info-section">
@@ -137,7 +136,7 @@ export default function EventInfoArea() {
           {favorite
             ? <FavoriteIcon className="star-icon" onClick={() => setFavorite(false)} />
             : <NotFavoriteIcon className="star-icon" onClick={() => setFavorite(true)} />}
-          <h3>{currentEvent.name}</h3>
+          <h3>{currentEvent ? currentEvent.name : "載入中..."}</h3>
         </div>
         <div className="ai-signal">
           <ul className="tab-bar">
@@ -169,19 +168,17 @@ export default function EventInfoArea() {
       <div className="activity-info-section-right">
         <div className="related-events">
           <h3>相似活動</h3>
-          {/* {currentEvent.related_events_id.map((id) => {
-            const eventName = fetchEventByID(id).name;
-            console.log('eventName', eventName);
-
+          {relatedEvents?.map((event) => {
             return (
               <button
-                key={id}
+                key={event.id}
                 className="related-event-badge"
-                onClick={() => setEventId(id)}
+                onClick={() => setEventId(event.id)}
               >
-                {eventName}
-              </button>);
-          })} */}
+                {event.name}
+              </button>
+            );
+          })}
         </div>
         <div className="history-records">
           <ul className="tab-bar">

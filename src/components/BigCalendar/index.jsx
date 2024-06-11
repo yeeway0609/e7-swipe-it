@@ -2,19 +2,17 @@ import "./style.sass";
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { EventIdContext } from "@/context/EventIdContext";
 import { SelectedDateContext } from "@/context/SelectedDateContext";
-import eventData from "@/data/events.json";
 
 export default function BigCalendar() {
-  const [eventsInfo, setEventsInfo] = useState(eventData);
+  const [eventsData, setEventsData] = useState(null);
+
   async function fetchEvents() {
     try {
-      const response = await fetch('http://luffy.ee.ncku.edu.tw:4445/events-info');
+      const response = await fetch('http://luffy.ee.ncku.edu.tw:4445/events');
       const data = await response.json();
-      console.log(data);
-      setEventsInfo(data);
-
+      setEventsData(data);
     } catch (error) {
-      console.error('Error fetching events\' info:', error);
+      console.error('Error fetching events:', error);
     }
   }
 
@@ -123,22 +121,17 @@ export default function BigCalendar() {
                 <p>{day.formatDate.substring(5)}</p>
                 <span></span>
                 <div className="event-area">
-                  {eventsInfo.map((event) => {
+                  {eventsData?.map((event) => {
                     const startDate = new Date(event.start_date); // Tue Apr 09 2024 00:00:00 GMT+0800 (Taipei Standard Time)
                     const endDate = new Date(event.end_date);
-
                     if (formatDates(startDate) == day.formatDate) {
                       const durationDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
                       const width = durationDays * 102;
-
                       return (
                         <div
                           key={event.id}
                           className="event"
-                          onClick={() => {
-                            console.log(event.id);
-                            setEventId(event.id);
-                          }}
+                          onClick={() => setEventId(event.id)}
                           style={{
                             width: `${width}%`,
                             backgroundColor: eventColor[event.type],
