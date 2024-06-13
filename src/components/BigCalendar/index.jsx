@@ -4,7 +4,19 @@ import { EventIdContext } from "@/context/EventIdContext";
 import { SelectedDateContext } from "@/context/SelectedDateContext";
 
 export default function BigCalendar() {
+  const [tabActive, setTabActive] = useState("week"); // week, all, favorite
   const [eventsData, setEventsData] = useState(null);
+  const { selectedDate } = useContext(SelectedDateContext);
+  const { eventId, setEventId } = useContext(EventIdContext);
+  const eventColor = {
+    "音樂祭": "#F9A060",
+    "演唱會(大型)": "#F9A060",
+    "演唱會(小型)": "#F9A060",
+    "藝文表演": "#3D8B00",
+    "藝文展覽": "#3D8B00",
+    "工商展覽(B2B)": "#0011A4",
+    "工商展覽(B2C)": "#0011A4",
+  };
 
   async function fetchEvents() {
     try {
@@ -19,19 +31,6 @@ export default function BigCalendar() {
   useEffect(() => {
     fetchEvents();
   }, []);
-
-  const { selectedDate } = useContext(SelectedDateContext);
-  const { eventId, setEventId } = useContext(EventIdContext);
-
-  const eventColor = {
-    "音樂祭": "#F9A060",
-    "演唱會(大型)": "#F9A060",
-    "演唱會(小型)": "#F9A060",
-    "藝文表演": "#3D8B00",
-    "藝文展覽": "#3D8B00",
-    "工商展覽(B2B)": "#0011A4",
-    "工商展覽(B2C)": "#0011A4",
-  };
 
   const currentDayRef = useRef(null);
   const parentRef = useRef(null);
@@ -54,11 +53,18 @@ export default function BigCalendar() {
       const targetElement = document.getElementById(targetDay.formatDate);
 
       if (targetElement) {
-        // console.log(targetElement);
-        targetElement.scrollIntoView({
-          behavior: "instant",
-          inline: "center",
-          block: "nearest"
+        const parentElement = parentRef.current;
+        const targetOffsetLeft = targetElement.offsetLeft;
+        const parentWidth = parentElement.offsetWidth;
+        const targetWidth = targetElement.offsetWidth;
+
+        // 計算新的 scrollLeft 位置，確保目標元素居中
+        const newScrollLeft = targetOffsetLeft - (parentWidth / 2) + (targetWidth / 2);
+
+        // 使用 scrollLeft 屬性來滾動
+        parentElement.scrollTo({
+          left: newScrollLeft,
+          behavior: "smooth"
         });
       }
     }
@@ -101,56 +107,88 @@ export default function BigCalendar() {
   const days = weekDays(new Date(dateRange[0]), new Date(dateRange[1]));
 
   return (
-    <div id="week-view-wrapper" ref={parentRef}>
-      <div id="day-heading">
-        {days.map((day, index) => {
-          return (
-            <div
-              key={index + "_" + day.dayNo}
-              id={day.formatDate}
-              ref={day.isToday ? currentDayRef : null}
-              className={
-                "day " +
-                day.dayName +
-                `${day.isToday === true ? " isToday" : ""}` +
-                `${day.isCurrentMonth ? " currentMonth" : " notCurrentMonth"}`
-              }
-            >
-              <p>{day.dayName.substring(0, 3)}</p>
-              <div className="date-col">
-                <p>{day.formatDate.substring(5)}</p>
-                <span></span>
-                <div className="event-area">
-                  {eventsData?.map((event) => {
-                    const startDate = new Date(event.start_date); // Tue Apr 09 2024 00:00:00 GMT+0800 (Taipei Standard Time)
-                    const endDate = new Date(event.end_date);
-                    if (formatDates(startDate) == day.formatDate) {
-                      const durationDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
-                      const width = durationDays * 102;
-                      return (
-                        <div
-                          key={event.id}
-                          className="event"
-                          onClick={() => setEventId(event.id)}
-                          style={{
-                            width: `${width}%`,
-                            backgroundColor: eventColor[event.type],
-                            border: (event.id === eventId) ? "3px solid black" : "none"
-                          }}
-                        >
-                          {event.name}
-                        </div>
-                      );
-                    } else {
-                      return <div key={event.id} className="no-event"></div>;
-                    }
-                  })}
+    <div id="calendar">
+      <ul className="tab-bar">
+        <li onClick={() => setTabActive("week")} className={tabActive == "week" ? "active" : ""}>
+          週歷
+        </li>
+        <li onClick={() => setTabActive("all")} className={tabActive == "all" ? "active" : ""}>
+          所有活動
+        </li>
+      </ul>
+
+      {tabActive == "week" ? (
+        <div id="week-view-wrapper" className="view-wrapper" ref={parentRef}>
+          <div id="day-heading">
+            {days.map((day, index) => {
+              return (
+                <div
+                  key={index + "_" + day.dayNo}
+                  id={day.formatDate}
+                  ref={day.isToday ? currentDayRef : null}
+                  className={
+                    "day " +
+                    day.dayName +
+                    `${day.isToday === true ? " isToday" : ""}` +
+                    `${day.isCurrentMonth ? " currentMonth" : " notCurrentMonth"}`
+                  }
+                >
+                  <p>{day.dayName.substring(0, 3)}</p>
+                  <div className="date-col">
+                    <p>{day.formatDate.substring(5)}</p>
+                    <span></span>
+                    <div className="event-area">
+                      {eventsData?.map((event) => {
+                        const startDate = new Date(event.start_date); // Tue Apr 09 2024 00:00:00 GMT+0800 (Taipei Standard Time)
+                        const endDate = new Date(event.end_date);
+                        if (formatDates(startDate) == day.formatDate) {
+                          const durationDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+                          const width = durationDays * 102;
+                          return (
+                            <div
+                              key={event.id}
+                              className="event"
+                              onClick={() => setEventId(event.id)}
+                              style={{
+                                width: `${width}%`,
+                                backgroundColor: eventColor[event.type],
+                                border: (event.id === eventId) ? "3px solid black" : "none"
+                              }}
+                            >
+                              {event.name}
+                            </div>
+                          );
+                        } else {
+                          return <div key={event.id} className="no-event"></div>;
+                        }
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div className="view-wrapper p-5">
+          <table>
+            <tr className="border-b border-[#D9D9D9]">
+              <td className="w-40 text-left text-Red">活動時間</td>
+              <td className="w-52 text-left text-Red">活動名稱</td>
+              <td className="w-20 text-left text-Red">活動地點</td>
+            </tr>
+            {eventsData?.map((event) => {
+              return (
+                <tr className="border-b border-[#D9D9D9] h-8" key={event.id}>
+                  <td className="font-semibold">{event.start_date.substring(5, 7)}/{event.start_date.substring(8, 10)} - {event.end_date.substring(5, 7)}/{event.end_date.substring(8, 10)}</td>
+                  <td className="cursor-pointer" onClick={() => setEventId(event.id)}>{event.name}</td>
+                  <td>{event.location}</td>
+                </tr>
+              );
+            })}
+          </table>
+        </div>
+      )}
     </div>
   );
 }

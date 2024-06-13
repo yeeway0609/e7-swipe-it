@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --red-active: #CB0210;
   --red-inactive: #FFB6B6;
