@@ -1,6 +1,7 @@
 import "./style.sass";
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { EventIdContext } from "@/context/EventIdContext";
+import { EventFilterContext } from "@/context/EventFilterContext";
 import { SelectedDateContext } from "@/context/SelectedDateContext";
 
 export default function BigCalendar() {
@@ -8,6 +9,16 @@ export default function BigCalendar() {
   const [eventsData, setEventsData] = useState(null);
   const { selectedDate } = useContext(SelectedDateContext);
   const { eventId, setEventId } = useContext(EventIdContext);
+  const { eventFilter, setEventFilter } = useContext(EventFilterContext);
+
+  const filteredEvents = eventsData?.filter(event => {
+    const nameMatch = eventFilter.name === "" || event.name.toLowerCase().includes(eventFilter.name.toLowerCase());
+    const locationMatch = eventFilter.location === "" || eventFilter.location === event.location;
+    const typeMatch = eventFilter.type === "" || eventFilter.type.split(",").includes(event.type);
+
+    return nameMatch && locationMatch && typeMatch;
+  });
+
   const eventColor = {
     "音樂祭": "#F9A060",
     "演唱會(大型)": "#F9A060",
@@ -110,7 +121,7 @@ export default function BigCalendar() {
     <div id="calendar">
       <ul className="tab-bar">
         <li onClick={() => setTabActive("week")} className={tabActive == "week" ? "active" : ""}>
-          週歷
+          週曆
         </li>
         <li onClick={() => setTabActive("all")} className={tabActive == "all" ? "active" : ""}>
           所有活動
@@ -138,7 +149,7 @@ export default function BigCalendar() {
                     <p>{day.formatDate.substring(5)}</p>
                     <span></span>
                     <div className="event-area">
-                      {eventsData?.map((event) => {
+                      {filteredEvents?.map((event) => {
                         const startDate = new Date(event.start_date); // Tue Apr 09 2024 00:00:00 GMT+0800 (Taipei Standard Time)
                         const endDate = new Date(event.end_date);
                         if (formatDates(startDate) == day.formatDate) {
@@ -177,7 +188,7 @@ export default function BigCalendar() {
               <td className="w-52 text-left text-Red">活動名稱</td>
               <td className="w-20 text-left text-Red">活動地點</td>
             </tr>
-            {eventsData?.map((event) => {
+            {filteredEvents?.map((event) => {
               return (
                 <tr className="border-b border-[#D9D9D9] h-8" key={event.id}>
                   <td className="font-semibold">{event.start_date.substring(5, 7)}/{event.start_date.substring(8, 10)} - {event.end_date.substring(5, 7)}/{event.end_date.substring(8, 10)}</td>

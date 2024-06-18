@@ -6,20 +6,23 @@ import About from "@/pages/About";
 import AddEvent from "@/pages/AddEvent";
 import SideBar from "@/components/SideBar";
 import { EventIdProvider } from "@/context/EventIdContext";
+import { EventFilterProvider } from "@/context/EventFilterContext";
 import { SelectedDateProvider } from "@/context/SelectedDateContext";
 
 export default function App() {
   return (
     <>
       <EventIdProvider>
-        <SelectedDateProvider>
-          <SideBar />
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path='/about' element={<About />} />
-            <Route path="/addEvent" element={<AddEvent />} />
-          </Routes>
-        </SelectedDateProvider>
+        <EventFilterProvider>
+          <SelectedDateProvider>
+            <SideBar />
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path='/about' element={<About />} />
+              <Route path="/addEvent" element={<AddEvent />} />
+            </Routes>
+          </SelectedDateProvider>
+        </EventFilterProvider>
       </EventIdProvider>
     </>
   );
