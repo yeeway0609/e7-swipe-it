@@ -18,15 +18,12 @@ export default function SideBar() {
       </div>
       <div className={`sidebar ${isOpened ? "opened" : "closed"}`}>
         <XMarkIcon onClick={handleClick} className="close-sidebar-btn" />
-        <div>
-          <h1>{userName}</h1>
-          <h3>專案探索</h3>
-          <h3>我的專案</h3>
-        </div>
+        <img className="avatar" src="https://i.pinimg.com/originals/3a/56/15/3a5615d873f56649459ea70e71e2e80b.jpg" />
+        <h1>{userName}</h1>
         <div className="nav-links">
-          <Link to="/" onClick={handleClick}>Dashboard</Link>
-          <Link to="/about" onClick={handleClick}>About us</Link>
-          <Link to="/addEvent" onClick={handleClick}>Add Event</Link>
+          <Link to="/" onClick={handleClick}>▻ 儀表板</Link>
+          <Link to="/addEvent" onClick={handleClick}>▻ 新增活動</Link>
+          <Link to="/about" onClick={handleClick}>▻ 關於我們</Link>
         </div>
       </div>
     </>

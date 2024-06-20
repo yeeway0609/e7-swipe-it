@@ -152,10 +152,10 @@ export default function EventInfoArea() {
   };
 
   function getLeftPieData(tab, eventId) {
-    let eventIdInt = parseInt(eventId); 
-    let remainder = eventIdInt % 4; 
+    let eventIdInt = parseInt(eventId);
+    let remainder = eventIdInt % 4;
     console.log("eventId:", eventId, "remainder:", remainder);
-  
+
     switch (remainder) {
       case 0:
         switch (tab) {
@@ -213,7 +213,7 @@ export default function EventInfoArea() {
         return [];
     }
   }
-  
+
 
   const right_pie_options = {
     animationEnabled: true,
@@ -344,11 +344,11 @@ export default function EventInfoArea() {
                   key={index}
                   className="product-box"
                   style={{
-                    backgroundColor: selectedProductIndex === index ? "#C9020F" : "#f0f0f0", 
+                    backgroundColor: selectedProductIndex === index ? "#C9020F" : "#f0f0f0",
                     color: selectedProductIndex === index ? "#ffffff" : "#000000",
                     cursor: "pointer"
                   }}
-                  onClick={() => handleProductClick(index)} 
+                  onClick={() => handleProductClick(index)}
                 >
                   <p>{product}</p>
                 </div>
