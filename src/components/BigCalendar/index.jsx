@@ -111,14 +111,6 @@ export default function BigCalendar() {
   const currentDayRef = useRef(null);
   const parentRef = useRef(null);
 
-  // 在組件初次渲染時滾動到當天日期的元素
-  useEffect(() => {
-    currentDayRef.current?.scrollIntoView({
-      behavior: "instant",
-      inline: "center"
-    });
-  }, []);
-
   // 在 selectedDate context 變化時滾動到新的日期
   useEffect(() => {
     if (!selectedDate) return;
@@ -135,7 +127,7 @@ export default function BigCalendar() {
         const targetWidth = targetElement.offsetWidth;
 
         // 計算新的 scrollLeft 位置，確保目標元素居中
-        const newScrollLeft = targetOffsetLeft - (parentWidth / 2) + (targetWidth / 2);
+        const newScrollLeft = targetOffsetLeft - (parentWidth) + (targetWidth);
 
         // 使用 scrollLeft 屬性來滾動
         parentElement.scrollTo({
@@ -145,6 +137,33 @@ export default function BigCalendar() {
       }
     }
   }, [selectedDate]);
+
+  // 在 calendarTab context 變化時立刻滾動到新的日期
+  useEffect(() => {
+    if (!selectedDate) return;
+
+    const targetDay = days.find(day => day.formatDate === formatDates(selectedDate));
+
+    if (targetDay && parentRef.current) {
+      const targetElement = document.getElementById(targetDay.formatDate);
+
+      if (targetElement) {
+        const parentElement = parentRef.current;
+        const targetOffsetLeft = targetElement.offsetLeft;
+        const parentWidth = parentElement.offsetWidth;
+        const targetWidth = targetElement.offsetWidth;
+
+        // 計算新的 scrollLeft 位置，確保目標元素居中
+        const newScrollLeft = targetOffsetLeft - (parentWidth) + (targetWidth);
+
+        // 使用 scrollLeft 屬性來滾動
+        parentElement.scrollTo({
+          left: newScrollLeft,
+          behavior: "instant"
+        });
+      }
+    }
+  }, [calendarTab]);
 
   // 格式化日期的函式，將 Date 轉換成 yyyy-mm-dd 格式的字串
   function formatDates(d) {

@@ -6,7 +6,7 @@ import { EventFilterContext } from "@/context/EventFilterContext";
 
 export default function SearchPanel() {
   const { eventFilter, setEventFilter } = useContext(EventFilterContext);
-  const activityTypes = ["工商展覽(B2B)", "工商展覽(B2C)", "藝文展覽", "藝文表演", "演唱會(大型)", "演唱會(小型)"];
+  const activityTypes = ["演唱會(大型)", "演唱會(小型)", "藝文展覽", "藝文表演", "工商展覽(B2B)", "工商展覽(B2C)"];
   const handleSearch = (e) => {
     const { name, value, checked } = e.target;
 
@@ -21,7 +21,7 @@ export default function SearchPanel() {
           const index = types.indexOf(value);
           if (index > -1) types.splice(index, 1);
         }
-        
+
         return { ...prev, type: types };
       });
     }
