@@ -91,6 +91,7 @@ export default function EventInfoArea() {
   const {eventId, setEventId} = useContext(EventIdContext);
   const [currentEvent, setCurrentEvent] = useState(null);
   const [relatedEvents, setRelatedEvents] = useState(null);
+  const [selectedSignalProductIndex, setSelectedSignalProductIndex] = useState(0);
 
   async function fetchEventByID(id) {
     try {
@@ -218,19 +219,79 @@ export default function EventInfoArea() {
   const right_pie_options = {
     animationEnabled: true,
     interactivityEnabled: true,
-    colorSet:"redShades",
-    width:250,
-    height:250,
+    colorSet: "redShades",
+    width: 250,
+    height: 250,
     data: [{
       type: "pie",
       startAngle: 150,
-      indexLabel: "{2023}",
+      indexLabel: "{name}",
       indexLabelPlacement: "inside",
       indexLabelFontSize: 16,
       indexLabelFontColor: "#ffffff",
-      dataPoints:RightChartData //json
+      dataPoints: getRightPieData(aiTabActive, historyTabActive)
     }]
+  };
+
+  function getRightPieData(tab, historyTabActive) {
+    switch (historyTabActive) {
+      case "2020":
+        switch (tab) {
+          case "交通":
+            return RightChartData.year2020.transportation.map(item => ({ name: item.name, y: item.y }));
+          case "住宿":
+            return RightChartData.year2020.accommodation.map(item => ({ name: item.name, y: item.y }));
+          case "票券":
+            return RightChartData.year2020.tickets.map(item => ({ name: item.name, y: item.y }));
+          case "飲食":
+            return RightChartData.year2020.dining.map(item => ({ name: item.name, y: item.y }));
+          default:
+            return [];
+        }
+      case "2021":
+        switch (tab) {
+          case "交通":
+            return RightChartData.year2021.transportation.map(item => ({ name: item.name, y: item.y }));
+          case "住宿":
+            return RightChartData.year2021.accommodation.map(item => ({ name: item.name, y: item.y }));
+          case "票券":
+            return RightChartData.year2021.tickets.map(item => ({ name: item.name, y: item.y }));
+          case "飲食":
+            return RightChartData.year2021.dining.map(item => ({ name: item.name, y: item.y }));
+          default:
+            return [];
+        }
+      case "2022":
+        switch (tab) {
+          case "交通":
+            return RightChartData.year2022.transportation.map(item => ({ name: item.name, y: item.y }));
+          case "住宿":
+            return RightChartData.year2022.accommodation.map(item => ({ name: item.name, y: item.y }));
+          case "票券":
+            return RightChartData.year2022.tickets.map(item => ({ name: item.name, y: item.y }));
+          case "飲食":
+            return RightChartData.year2022.dining.map(item => ({ name: item.name, y: item.y }));
+          default:
+            return [];
+        }
+      case "2023":
+        switch (tab) {
+          case "交通":
+            return RightChartData.year2023.transportation.map(item => ({ name: item.name, y: item.y }));
+          case "住宿":
+            return RightChartData.year2023.accommodation.map(item => ({ name: item.name, y: item.y }));
+          case "票券":
+            return RightChartData.year2023.tickets.map(item => ({ name: item.name, y: item.y }));
+          case "飲食":
+            return RightChartData.year2023.dining.map(item => ({ name: item.name, y: item.y }));
+          default:
+            return [];
+        }
+      default:
+        return [];
+    }
   }
+
 
   CanvasJS.addColorSet("redShades",
     [//colorSet Array
@@ -242,9 +303,51 @@ export default function EventInfoArea() {
       "rgba(201, 2, 15, 0.3)", // DarkRed
     ]);
 
-    function handleProductClick(productIndex) {
-      setSelectedProductIndex(productIndex === selectedProductIndex ? null : productIndex);
+  function handleProductClick(productIndex) {
+    setSelectedProductIndex(productIndex === selectedProductIndex ? null : productIndex);
+  }
+
+  function handleSignalProductClick(productIndex) {
+    setSelectedSignalProductIndex(productIndex === selectedSignalProductIndex ? null : productIndex);
+  }
+
+
+  function getImageByYearAndLine(year, position) {
+    if (!currentEvent) {
+      return null;
     }
+
+    const lineMap = {
+      "2023": currentEvent.line_2023,
+      "2022": currentEvent.line_2022,
+      "2021": currentEvent.line_2021,
+      "2020": currentEvent.line_2020,
+    };
+
+    const images = {
+      0: { left: member1_1, up: member1_2, down: member1_3 },
+      1: { left: member2_1, up: member2_2, down: member2_3 },
+      2: { left: member3_1, up: member3_2, down: member3_3 },
+      3: { left: member4_1, up: member4_2, down: member4_3 },
+      4: { left: member5_1, up: member5_2, down: member5_3 },
+      5: { left: member6_1, up: member6_2, down: member6_3 },
+      6: { left: member7_1, up: member7_2, down: member7_3 },
+      7: { left: member8_1, up: member8_2, down: member8_3 },
+      8: { left: member9_1, up: member9_2, down: member9_3 },
+      9: { left: member10_1, up: member10_2, down: member10_3 },
+      10: { left: member11_1, up: member11_2, down: member11_3 },
+      11: { left: member12_1, up: member12_2, down: member12_3 },
+      12: { left: member13_1, up: member13_2, down: member13_3 },
+      13: { left: member14_1, up: member14_2, down: member14_3 },
+      14: { left: member15_1, up: member15_2, down: member15_3 },
+      15: { left: member16_1, up: member16_2, down: member16_3 },
+    };
+
+    const line = lineMap[year];
+    return line !== undefined && images[line] ? images[line][position] : null;
+  }
+
+
   return (
     <div className="activity-info-section">
       <div className="activity-info-section-left">
@@ -271,33 +374,56 @@ export default function EventInfoArea() {
           <div className="ai-signal-info-left">
             <div className="AI-top">
               <div className="AI-recommend">
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-              <h3>&nbsp;&nbsp;&nbsp;&nbsp;AI訊號推薦</h3>
-              <div className="left-pie-chart">
-                <CanvasJSChart options = {left_pie_options}/>
-              </div>
-              <img src={member1_1} alt="G1 1-left" />
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <h3>&nbsp;&nbsp;&nbsp;&nbsp;AI訊號推薦</h3>
+                <div className="left-pie-chart">
+                  <CanvasJSChart options={left_pie_options} />
+                </div>
               </div>
               <div className="product-signal">
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-              <h3>商品訊號</h3>
-              <p>過去5年內當 高鐵 發生hike訊號時，在4天後 飯店 也會發生hike訊號，並延續56天。</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <h3>商品訊號</h3>
+                <div className="top5-products" style={{ display: "flex", alignItems: "center"}}>
+                  {currentEvent?.top5_products?.slice(0, 3).map((product, index) => (
+                    <div
+                      key={index}
+                      className="product-box2"
+                      style={{
+                        backgroundColor: selectedSignalProductIndex === index ? "#C9020F" : "#f0f0f0",
+                        color: selectedSignalProductIndex === index ? "#ffffff" : "#000000",
+                        cursor: "pointer"
+                      }}
+                      onClick={() => handleSignalProductClick(index)}
+                    >
+                      <p>{product}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="product-signal-analysis"style={{ backgroundColor: "#f0f0f0", width: "300px", height: "150px", padding: "10px", borderRadius: "5px" }}>
+                  <p>過去5年內當 高鐵 發生hike訊號時，在4天後 {currentEvent?.top5_products[selectedSignalProductIndex]} 也會發生hike訊號，並延續56天。<br></br><br></br>信心程度:75%</p>
+                </div>
               </div>
             </div>
-            <div className="AI-down"></div>
+            <div className="AI-down">
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;刷卡總額--</h3>
+            <h3 style={{ color: "#C9020F" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;高鐵</h3>
+              <div className="left-image">
+                    <img src={getImageByYearAndLine(historyTabActive,"left")}  />
+                    <p>01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;07&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;08&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;09&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12 </p>
+                  </div>
+            </div>
           </div>
         </div>
         <div className="news-signal">
-              <h3>新聞熱搜關鍵字</h3>
-              <div className="news-keywords">
-                {currentEvent?.news_trend?.map((keyword, index) => (
-                  <div key={index} className="news-keyword">
-                    <p>{keyword}</p>
-                  </div>
-                ))}
+          <h3>新聞熱搜關鍵字</h3>
+          <div className="news-keywords">
+            {currentEvent?.news_trend?.map((keyword, index) => (
+              <div key={index} className="news-keyword">
+                <p>{keyword}</p>
               </div>
+            ))}
+          </div>
         </div>
-
       </div>
       <div className="activity-info-section-right">
         <div className="related-events">
@@ -329,34 +455,52 @@ export default function EventInfoArea() {
             })}
           </ul>
           <div className="history-records-info">
-          <div className="history-records-info-top">
-            <div className="history-records-pie">
-              <h3>歷史紀錄</h3>
-              <div className="right_pie">
-                <CanvasJSChartRight options = {right_pie_options}/>
+            <div className="history-records-info-top">
+              <div className="history-records-pie">
+                <h3>歷史紀錄</h3>
+                <div className="right_pie">
+                  <CanvasJSChartRight options={right_pie_options} />
+                </div>
+              </div>
+              <div className="history-records-top5">
+                <h3>前五名相關商品</h3>
+                <div className="top5-products" style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+                  {currentEvent?.top5_products?.map((product, index) => (
+                    <div
+                      key={index}
+                      className="product-box"
+                      style={{
+                        backgroundColor: selectedProductIndex === index ? "#C9020F" : "#f0f0f0",
+                        color: selectedProductIndex === index ? "#ffffff" : "#000000",
+                        cursor: "pointer"
+                      }}
+                      onClick={() => handleProductClick(index)}
+                    >
+                      <p>{product}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-            <div className="history-records-top5">
-              <h3>前五名相關商品</h3>
-              <div className="top5-products"style={{ display: "flex" , alignItems: "center", flexDirection: "column"}}>
-                  {currentEvent?.top5_products?.map((product, index) => (
-                <div
-                  key={index}
-                  className="product-box"
-                  style={{
-                    backgroundColor: selectedProductIndex === index ? "#C9020F" : "#f0f0f0",
-                    color: selectedProductIndex === index ? "#ffffff" : "#000000",
-                    cursor: "pointer"
-                  }}
-                  onClick={() => handleProductClick(index)}
-                >
-                  <p>{product}</p>
+            <div className="history-records-info-down">
+              <div className="up-text-image">
+                <h3>刷卡總額--</h3>
+                <h3 style={{ color: "#C9020F" }}>高鐵</h3>
+                <div className="up-image">
+                  <img src={getImageByYearAndLine(historyTabActive,"up")}  />
+                  <p>01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;07&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;08&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;09&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12 </p>
                 </div>
-              ))}
-            </div>
+              </div>
+              <div className="down-text-image">
+                <h3>刷卡總額--</h3>
+                <h3 style={{ color: "#C9020F" }}>{currentEvent?.top5_products[selectedProductIndex]}</h3>
+                <div className="down-image">
+                  <img src={getImageByYearAndLine(historyTabActive,"down")}  />
+                  <p>01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;07&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;08&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;09&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12 </p>
+                </div>
+              </div>
             </div>
           </div>
-          </div >
         </div>
       </div>
     </div>
