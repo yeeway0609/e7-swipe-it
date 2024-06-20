@@ -20,14 +20,33 @@ export default function BigCalendar() {
     return nameMatch && locationMatch && typeMatch;
   });
 
+  const eventTypes = ["演唱會(大型)", "演唱會(小型)", "藝文表演", "藝文展覽", "工商展覽(B2B)", "工商展覽(B2C)"];
+
   const eventColor = {
-    "音樂祭": "#F9A060",
     "演唱會(大型)": "#F9A060",
     "演唱會(小型)": "#F9A060",
     "藝文表演": "#3D8B00",
     "藝文展覽": "#3D8B00",
-    "工商展覽(B2B)": "#0011A4",
-    "工商展覽(B2C)": "#0011A4",
+    "工商展覽(B2B)": "#4F5CD0",
+    "工商展覽(B2C)": "#4F5CD0",
+  };
+
+  const eventBgColorClassName = {
+    "演唱會(大型)": "bg-[#F9A060]",
+    "演唱會(小型)": "bg-[#F9A060]",
+    "藝文表演": "bg-[#3D8B00]",
+    "藝文展覽": "bg-[#3D8B00]",
+    "工商展覽(B2B)": "bg-[#4F5CD0]",
+    "工商展覽(B2C)": "bg-[#4F5CD0]",
+  };
+
+  const eventBorderColorClassName = {
+    "演唱會(大型)": "border-b-[#F9A060]",
+    "演唱會(小型)": "border-b-[#F9A060]",
+    "藝文表演": "border-b-[#3D8B00]",
+    "藝文展覽": "border-b-[#3D8B00]",
+    "工商展覽(B2B)": "border-b-[#4F5CD0]",
+    "工商展覽(B2C)": "border-b-[#4F5CD0]",
   };
 
   const favoriteEvents = [
@@ -235,15 +254,52 @@ export default function BigCalendar() {
           return (
             <div className="view-wrapper p-5">
               {eventFilter?.type.length === 0 ? (
-                <div className="w-full h-full flex justify-center items-center text-[#a7a7a7] text-3xl font-bold">
-                  請勾選活動類型
-                </div>
-              ) : (
-                eventFilter?.type.map((eventFilterType) => {
+                eventTypes.map((eventType) => {
                   return (
                     <>
-                      <h3 key="" className="w-full mt-4 mb-2 border-b-2 border-b-[#F9A060]">
-                        <span className="bg-[#FCBD8F] px-2 py-1 rounded-t-md">{eventFilterType}</span>
+                      <h3 key="" className={`w-full mt-4 mb-2 border-b-2 ${eventBorderColorClassName[eventType]}`}>
+                        <span className={`${eventBgColorClassName[eventType]} px-2 py-1 rounded-t-md text-white`}>{eventType}</span>
+                      </h3>
+                      <div className="w-full flex border-b border-[#D9D9D9]">
+                        <div className="w-3/12 text-left text-Red">活動時間</div>
+                        <div className="w-3/12 text-left text-Red">活動名稱</div>
+                        <div className="w-4/12 text-left text-Red">商機熱度</div>
+                        <div className="w-2/12 text-left text-Red">活動地點</div>
+                      </div>
+                      {filteredEvents
+                        .filter(event => event.type === eventType)
+                        .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
+                        .map((event) => {
+                          const progress = (Math.floor(Math.random() * 100) + 50).toFixed(0);
+
+                          return (
+                            <div className="flex w-full items-center border-b border-[#D9D9D9] h-8" key={event.id}>
+                              <div className="w-3/12 font-semibold">
+                                <span>{event.start_date.substring(5, 7)}/{event.start_date.substring(8, 10)} - {event.end_date.substring(5, 7)}/{event.end_date.substring(8, 10)}</span>
+                              </div>
+                              <div className="w-3/12 cursor-pointer" onClick={() => setEventId(event.id)}>
+                                <span>{event.name}</span>
+                              </div>
+                              <div className="w-4/12">
+                                <div className="w-[150px] h-[10px] rounded-[10px] bg-[#D9D9D9]">
+                                  <div className={`h-full rounded-[10px] ${eventBgColorClassName[eventType]}`} style={{width: `${progress}px`}}></div>
+                                </div>
+                              </div>
+                              <div className="w-2/12">{event.location}</div>
+                            </div>
+                          );
+                        })}
+                    </>
+                  );
+                })
+              ) : (
+                eventFilter?.type.map((eventFilterType) => {
+                  const filteredEventsByType = filteredEvents.filter(event => event.type === eventFilterType);
+
+                  return filteredEventsByType.length > 0 ?  (
+                    <>
+                      <h3 key="" className={`w-full mt-4 mb-2 border-b-2 ${eventBorderColorClassName[eventFilterType]}`}>
+                        <span className={`${eventBgColorClassName[eventFilterType]} px-2 py-1 rounded-t-md text-white`}>{eventFilterType}</span>
                       </h3>
                       <div className="w-full flex border-b border-[#D9D9D9]">
                         <div className="w-3/12 text-left text-Red">活動時間</div>
@@ -266,8 +322,8 @@ export default function BigCalendar() {
                                 <span>{event.name}</span>
                               </div>
                               <div className="w-4/12">
-                                <div className="w-[150px] h-[10px] rounded-[10px] bg-[#FFE1CC]">
-                                  <div className={`h-full rounded-[10px] bg-[#F8AA73]`} style={{width: `${progress}px`}}></div>
+                                <div className="w-[150px] h-[10px] rounded-[10px] bg-[#D9D9D9]">
+                                  <div className={`h-full rounded-[10px] ${eventBgColorClassName[eventFilterType]}`} style={{width: `${progress}px`}}></div>
                                 </div>
                               </div>
                               <div className="w-2/12">{event.location}</div>
@@ -275,6 +331,10 @@ export default function BigCalendar() {
                           );
                         })}
                     </>
+                  ) : (
+                    <div className="w-full h-full flex justify-center items-center text-[#a7a7a7] text-3xl font-bold">
+                      沒有配對結果
+                    </div>
                   );
                 })
               )}
