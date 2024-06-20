@@ -14,16 +14,15 @@ export default function SearchPanel() {
       setEventFilter((prev) => ({ ...prev, name: value }));
     } else if (name === "activityType") {
       setEventFilter((prev) => {
-        const types = prev.type ? prev.type.split(",") : [];
+        const types = prev.type ? [...prev.type] : [];
         if (checked) {
           types.push(value);
         } else {
           const index = types.indexOf(value);
-          if (index > -1) {
-            types.splice(index, 1);
-          }
+          if (index > -1) types.splice(index, 1);
         }
-        return { ...prev, type: types.join(",") };
+        
+        return { ...prev, type: types };
       });
     }
   };
@@ -48,7 +47,7 @@ export default function SearchPanel() {
               type="checkbox"
               name="activityType"
               value={type}
-              checked={eventFilter.type.split(",").includes(type)}
+              checked={eventFilter.type.includes(type)}
               onChange={handleSearch}
             />
             <span>{type}</span>

@@ -3,18 +3,19 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import { EventIdContext } from "@/context/EventIdContext";
 import { EventFilterContext } from "@/context/EventFilterContext";
 import { SelectedDateContext } from "@/context/SelectedDateContext";
+import { CalendarTabContext } from "@/context/CalendarTabContext";
 
 export default function BigCalendar() {
-  const [tabActive, setTabActive] = useState("week"); // week, all, favorite
   const [eventsData, setEventsData] = useState(null);
   const { selectedDate } = useContext(SelectedDateContext);
   const { eventId, setEventId } = useContext(EventIdContext);
-  const { eventFilter, setEventFilter } = useContext(EventFilterContext);
+  const { eventFilter } = useContext(EventFilterContext);
+  const { calendarTab, setCalendarTab } = useContext(CalendarTabContext);
 
   const filteredEvents = eventsData?.filter(event => {
     const nameMatch = eventFilter.name === "" || event.name.toLowerCase().includes(eventFilter.name.toLowerCase());
     const locationMatch = eventFilter.location === "" || eventFilter.location === event.location;
-    const typeMatch = eventFilter.type === "" || eventFilter.type.split(",").includes(event.type);
+    const typeMatch = eventFilter.type.length === 0 || eventFilter.type.includes(event.type);
 
     return nameMatch && locationMatch && typeMatch;
   });
@@ -28,6 +29,51 @@ export default function BigCalendar() {
     "工商展覽(B2B)": "#0011A4",
     "工商展覽(B2C)": "#0011A4",
   };
+
+  const favoriteEvents = [
+    {
+      name: "大港開唱",
+      location: "高雄",
+      date: "2024/06/20-2024/06/21",
+      type: "音樂祭",
+      bgColor: `bg-[#F9A060]`
+    },
+    {
+      name: "台灣祭",
+      location: "屏東",
+      date: "2024/06/20-2024/06/21",
+      type: "音樂祭",
+      bgColor: `bg-[#F9A060]`
+    },
+    {
+      name: "黃色小鴨",
+      location: "高雄",
+      date: "2024/06/20-2024/06/21",
+      type: "音樂祭",
+      bgColor: `bg-[#3D8B00]`
+    },
+    {
+      name: "草草戲劇節",
+      location: "嘉義",
+      date: "2024/06/20-2024/06/21",
+      type: "音樂祭",
+      bgColor: `bg-[#3D8B00]`
+    },
+    {
+      name: "電腦展",
+      location: "台北",
+      date: "2024/06/20-2024/06/21",
+      type: "音樂祭",
+      bgColor: `bg-[#4F5CD0]`
+    },
+    {
+      name: "半導體展",
+      location: "台北",
+      date: "2024/06/20-2024/06/21",
+      type: "音樂祭",
+      bgColor: `bg-[#4F5CD0]`
+    }
+  ];
 
   async function fetchEvents() {
     try {
@@ -120,86 +166,141 @@ export default function BigCalendar() {
   return (
     <div id="calendar">
       <ul className="tab-bar">
-        <li onClick={() => setTabActive("week")} className={tabActive == "week" ? "active" : ""}>
+        <li onClick={() => setCalendarTab(1)} className={calendarTab == 1 ? "active" : ""}>
           週曆
         </li>
-        <li onClick={() => setTabActive("all")} className={tabActive == "all" ? "active" : ""}>
+        <li onClick={() => setCalendarTab(2)} className={calendarTab == 2 ? "active" : ""}>
           所有活動
         </li>
+        <li onClick={() => setCalendarTab(3)} className={calendarTab == 3 ? "active" : ""}>
+          收藏
+        </li>
       </ul>
+      {(() => {
+        if (calendarTab == 1) {
+          return (
+            <div id="week-view-wrapper" className="view-wrapper" ref={parentRef}>
+              <div id="day-heading">
+                {days.map((day, index) => {
+                  return (
+                    <div
+                      key={index + "_" + day.dayNo}
+                      id={day.formatDate}
+                      ref={day.isToday ? currentDayRef : null}
+                      className={
+                        "day " +
+                        day.dayName +
+                        `${day.isToday === true ? " isToday" : ""}` +
+                        `${day.isCurrentMonth ? " currentMonth" : " notCurrentMonth"}`
+                      }
+                    >
+                      <p>{day.dayName.substring(0, 3)}</p>
+                      <div className="date-col">
+                        <p>{day.formatDate.substring(5)}</p>
+                        <span></span>
+                        <div className="event-area">
+                          {filteredEvents?.map((event) => {
+                            const startDate = new Date(event.start_date); // Tue Apr 09 2024 00:00:00 GMT+0800 (Taipei Standard Time)
+                            const endDate = new Date(event.end_date);
+                            if (formatDates(startDate) == day.formatDate) {
+                              const durationDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+                              const width = durationDays * 102;
+                              return (
+                                <div
+                                  key={event.id}
+                                  className="event"
+                                  onClick={() => setEventId(event.id)}
+                                  style={{
+                                    width: `${width}%`,
+                                    backgroundColor: eventColor[event.type],
+                                    border: (event.id === eventId) ? "3px solid black" : "none"
+                                  }}
+                                >
+                                  {event.name}
+                                </div>
+                              );
+                            } else {
+                              return <div key={event.id} className="no-event"></div>;
+                            }
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        } else if (calendarTab === 2) {
+          return (
+            <div className="view-wrapper p-5">
+              {eventFilter?.type.length === 0 ? (
+                <div className="w-full h-full flex justify-center items-center text-[#a7a7a7] text-3xl font-bold">
+                  請勾選活動類型
+                </div>
+              ) : (
+                eventFilter?.type.map((eventFilterType) => {
+                  return (
+                    <>
+                      <h3 key="" className="w-full mt-4 mb-2 border-b-2 border-b-[#F9A060]">
+                        <span className="bg-[#FCBD8F] px-2 py-1 rounded-t-md">{eventFilterType}</span>
+                      </h3>
+                      <div className="w-full flex border-b border-[#D9D9D9]">
+                        <div className="w-3/12 text-left text-Red">活動時間</div>
+                        <div className="w-3/12 text-left text-Red">活動名稱</div>
+                        <div className="w-4/12 text-left text-Red">商機熱度</div>
+                        <div className="w-2/12 text-left text-Red">活動地點</div>
+                      </div>
+                      {filteredEvents
+                        .filter(event => event.type === eventFilterType)
+                        .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
+                        .map((event) => {
+                          const progress = (Math.floor(Math.random() * 100) + 50).toFixed(0);
 
-      {tabActive == "week" ? (
-        <div id="week-view-wrapper" className="view-wrapper" ref={parentRef}>
-          <div id="day-heading">
-            {days.map((day, index) => {
-              return (
-                <div
-                  key={index + "_" + day.dayNo}
-                  id={day.formatDate}
-                  ref={day.isToday ? currentDayRef : null}
-                  className={
-                    "day " +
-                    day.dayName +
-                    `${day.isToday === true ? " isToday" : ""}` +
-                    `${day.isCurrentMonth ? " currentMonth" : " notCurrentMonth"}`
-                  }
-                >
-                  <p>{day.dayName.substring(0, 3)}</p>
-                  <div className="date-col">
-                    <p>{day.formatDate.substring(5)}</p>
-                    <span></span>
-                    <div className="event-area">
-                      {filteredEvents?.map((event) => {
-                        const startDate = new Date(event.start_date); // Tue Apr 09 2024 00:00:00 GMT+0800 (Taipei Standard Time)
-                        const endDate = new Date(event.end_date);
-                        if (formatDates(startDate) == day.formatDate) {
-                          const durationDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
-                          const width = durationDays * 102;
                           return (
-                            <div
-                              key={event.id}
-                              className="event"
-                              onClick={() => setEventId(event.id)}
-                              style={{
-                                width: `${width}%`,
-                                backgroundColor: eventColor[event.type],
-                                border: (event.id === eventId) ? "3px solid black" : "none"
-                              }}
-                            >
-                              {event.name}
+                            <div className="flex w-full items-center border-b border-[#D9D9D9] h-8" key={event.id}>
+                              <div className="w-3/12 font-semibold">
+                                <span>{event.start_date.substring(5, 7)}/{event.start_date.substring(8, 10)} - {event.end_date.substring(5, 7)}/{event.end_date.substring(8, 10)}</span>
+                              </div>
+                              <div className="w-3/12 cursor-pointer" onClick={() => setEventId(event.id)}>
+                                <span>{event.name}</span>
+                              </div>
+                              <div className="w-4/12">
+                                <div className="w-[150px] h-[10px] rounded-[10px] bg-[#FFE1CC]">
+                                  <div className={`h-full rounded-[10px] bg-[#F8AA73]`} style={{width: `${progress}px`}}></div>
+                                </div>
+                              </div>
+                              <div className="w-2/12">{event.location}</div>
                             </div>
                           );
-                        } else {
-                          return <div key={event.id} className="no-event"></div>;
-                        }
-                      })}
+                        })}
+                    </>
+                  );
+                })
+              )}
+            </div>
+          );
+        } else {
+          return (
+            <div className="view-wrapper p-5">
+              <div className="flex flex-wrap gap-5">
+                {favoriteEvents.map((event, idx) => {
+                  return (
+                    <div key={idx} className={`w-[240px] h-[114px] pt-2 pl-2 ${event.bgColor} rounded-lg`}>
+                      <div className="flex justify-between pr-2 text-[#ffffff]">
+                        <span>{event.name}</span>
+                        <span>{event.location}</span>
+                      </div>
+                      <div className="text-sm mb-1 text-[#ffffff]">{event.date}</div>
+                      <textarea className="w-[232px] p-1 rounded-lg border-[1px] border-[#787878] resize-none" placeholder="note:"></textarea>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : (
-        <div className="view-wrapper p-5">
-          <table>
-            <tr className="border-b border-[#D9D9D9]">
-              <td className="w-40 text-left text-Red">活動時間</td>
-              <td className="w-52 text-left text-Red">活動名稱</td>
-              <td className="w-20 text-left text-Red">活動地點</td>
-            </tr>
-            {filteredEvents?.map((event) => {
-              return (
-                <tr className="border-b border-[#D9D9D9] h-8" key={event.id}>
-                  <td className="font-semibold">{event.start_date.substring(5, 7)}/{event.start_date.substring(8, 10)} - {event.end_date.substring(5, 7)}/{event.end_date.substring(8, 10)}</td>
-                  <td className="cursor-pointer" onClick={() => setEventId(event.id)}>{event.name}</td>
-                  <td>{event.location}</td>
-                </tr>
-              );
-            })}
-          </table>
-        </div>
-      )}
+                  );
+                })}
+              </div>
+            </div>
+          );
+        }
+      })()}
     </div>
   );
 }

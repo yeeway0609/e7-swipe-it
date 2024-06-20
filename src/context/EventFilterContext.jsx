@@ -5,7 +5,7 @@ export const EventFilterContext = createContext();
 export const EventFilterProvider = ({ children }) => {
   const [eventFilter, setEventFilter] = useState({
     name: "",
-    type: "",
+    type: [],
     location: "",
   });
 
