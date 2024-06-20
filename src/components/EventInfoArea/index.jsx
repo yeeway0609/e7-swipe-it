@@ -6,6 +6,7 @@ import { StarIcon as FavoriteIcon } from "@heroicons/react/24/solid";
 import CanvasJSReact from "@canvasjs/react-charts";
 import PieChartData from "@/data/PieChartData.json";
 import RightChartData from "@/data/RightChartData.json";
+
 // G1
 import member1_1 from "@/img/line_chart/G1/1-left.png";
 import member1_2 from "@/img/line_chart/G1/1-up.png";
@@ -404,24 +405,49 @@ export default function EventInfoArea() {
                 </div>
               </div>
             </div>
-            <div className="AI-down">
-            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;刷卡總額--</h3>
-            <h3 style={{ color: "#C9020F" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;高鐵</h3>
-              <div className="left-image">
-                    <img src={getImageByYearAndLine(historyTabActive,"left")}  />
-                    <p>01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;07&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;08&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;09&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12 </p>
-                  </div>
+            <div className="AI-down mt-8 flex items-center gap-2">
+              <h3 className="ml-3 [writing-mode:vertical-lr]">刷卡總額</h3>
+              <div className="text-sm mt-1 flex flex-col gap-[6px]">
+                <div>5648</div>
+                <div>5647</div>
+                <div>5646</div>
+                <div>5645</div>
+                <div>5644</div>
+              </div>
+              <div className="left-image relative">
+                <h3 className="absolute font-bold" style={{ color: "#C9020F" }}>高鐵</h3>
+                <img src={getImageByYearAndLine(historyTabActive,"left")}  />
+                <div className="flex gap-[34px]">
+                  <span>01</span>
+                  <span>02</span>
+                  <span>03</span>
+                  <span>04</span>
+                  <span>05</span>
+                  <span>06</span>
+                  <span>07</span>
+                  <span>08</span>
+                  <span>09</span>
+                  <span>10</span>
+                  <span>11</span>
+                  <span>12</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div className="news-signal">
-          <h3>新聞熱搜關鍵字</h3>
-          <div className="news-keywords">
-            {currentEvent?.news_trend?.map((keyword, index) => (
-              <div key={index} className="news-keyword">
-                <p>{keyword}</p>
-              </div>
-            ))}
+          <h3 className="mt-2">新聞熱搜關鍵字</h3>
+          <div className="relative h-20 mt-5 ml-20 mb-20">
+            <span className="absolute left-[10px] top-[10px] text-lg">草東沒有派對</span>
+            <span className="absolute left-[120px] top-[35px] text-xl">台灣祭</span>
+            <span className="absolute left-[130px] top-[0px] text-sm">酒吧</span>
+            <span className="absolute left-[50px] top-[55px] text-xl">唱歌</span>
+            <span className="absolute left-[10px] top-[90px] text-xl">滿島光</span>
+            <span className="absolute left-[100px] top-[80px] text-base">熟食</span>
+            <span className="absolute left-[150px] top-[75px] text-base">飲品</span>
+            <span className="absolute left-[220px] top-[60px] text-xl">毛巾</span>
+            <span className="absolute left-[220px] top-[35px] text-sm">啤酒</span>
+            <span className="absolute left-[200px] top-[5px] text-xl">週邊商品</span>
           </div>
         </div>
       </div>
@@ -483,20 +509,60 @@ export default function EventInfoArea() {
               </div>
             </div>
             <div className="history-records-info-down">
-              <div className="up-text-image">
-                <h3>刷卡總額--</h3>
-                <h3 style={{ color: "#C9020F" }}>高鐵</h3>
-                <div className="up-image">
+              <div className="up-text-image mt-8 flex items-center gap-2">
+                <h3 className="[writing-mode:vertical-lr]">刷卡總額</h3>
+                <div className="text-sm flex flex-col gap-[1px]">
+                  <div>5648</div>
+                  <div>5647</div>
+                  <div>5646</div>
+                  <div>5645</div>
+                  <div>5644</div>
+                </div>
+                <div className="up-image relative mt-4">
+                  <h3 className="absolute font-bold" style={{ color: "#C9020F" }}>高鐵</h3>
                   <img src={getImageByYearAndLine(historyTabActive,"up")}  />
-                  <p>01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;07&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;08&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;09&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12 </p>
+                  <div className="flex gap-[22px]">
+                    <span>01</span>
+                    <span>02</span>
+                    <span>03</span>
+                    <span>04</span>
+                    <span>05</span>
+                    <span>06</span>
+                    <span>07</span>
+                    <span>08</span>
+                    <span>09</span>
+                    <span>10</span>
+                    <span>11</span>
+                    <span>12</span>
+                  </div>
                 </div>
               </div>
-              <div className="down-text-image">
-                <h3>刷卡總額--</h3>
-                <h3 style={{ color: "#C9020F" }}>{currentEvent?.top5_products[selectedProductIndex]}</h3>
-                <div className="down-image">
+              <div className="down-text-image flex items-center gap-2">
+                <h3 className="[writing-mode:vertical-lr]">刷卡總額</h3>
+                <div className="text-sm flex flex-col gap-[1px]">
+                  <div>5648</div>
+                  <div>5647</div>
+                  <div>5646</div>
+                  <div>5645</div>
+                  <div>5644</div>
+                </div>
+                <div className="down-image relative mt-4">
+                  <h3 className="absolute font-bold" style={{ color: "#C9020F" }}>{currentEvent?.top5_products[selectedProductIndex]}</h3>
                   <img src={getImageByYearAndLine(historyTabActive,"down")}  />
-                  <p>01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;07&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;08&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;09&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12 </p>
+                  <div className="flex gap-[22px]">
+                    <span>01</span>
+                    <span>02</span>
+                    <span>03</span>
+                    <span>04</span>
+                    <span>05</span>
+                    <span>06</span>
+                    <span>07</span>
+                    <span>08</span>
+                    <span>09</span>
+                    <span>10</span>
+                    <span>11</span>
+                    <span>12</span>
+                  </div>
                 </div>
               </div>
             </div>
