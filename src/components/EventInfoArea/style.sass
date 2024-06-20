@@ -1,87 +1,168 @@
 .activity-info-section
-	display: flex
-	gap: 16px
-	padding: 16px
-	.activity-info-section-left
-		flex: 4
-	.activity-info-section-right
-		flex: 6
+  display: flex
+  gap: 16px
+  width: 100%
+  height: 100%
 
+  .activity-info-section-left
+    margin-left: 20px
+    width: 50%
+    height: 100%
+    display: flex
+    flex-direction: column
+
+    .ai-signal-info-left
+      background-color: transparent
+      border: 1px solid black
+      border-radius: 0 12px 12px
+      width: 100%
+      min-height: 607px 
+      flex: 1
+
+      .AI-top
+        display: flex
+        width: 100%
+        height: 60%
+
+        .AI-recommend
+          width: 50%
+          height: auto
+          h3
+            font-size: 24px
+            font-weight: 400
+
+        .product-signal
+          width: 50%
+          height: auto
+          h3
+            font-size: 24px
+            font-weight: 400
+
+    .news-signal
+      width: 100%
+      height: 30%
+      h3
+        font-size: 24px
+        font-weight: 400
+        color:#DA0000
+
+
+  .activity-info-section-right
+    margin-right: 20px
+    width: 50%
+    height: 100%
+    flex: 1
+    display: flex
+    flex-direction: column
+
+    .history-records-info
+      background-color: transparent
+      border: 1px solid black
+      border-radius: 0 12px 12px
+      padding: 16px
+      width: 100%
+      height: 100%
+      min-height: 700px 
+      .history-records-info-top
+        display: flex
+        width: 100%
+        height: 40%
+        .history-records-pie
+          width: 50%
+          height: 20%
+          h3
+            font-size: 24px
+            font-weight: 400
+
+          .right_pie
+            position: relative
+            width: 80%
+            height: 80%
+            margin-left:50px
+        .history-records-top5
+          width: 50%
+          height: 20%
+          h3
+            font-size: 24px
+            font-weight: 400
 .tab-bar
-	display: flex
-	list-style: none
-	li
-		background-color: var(--red-inactive)
-		color: white
-		padding: 8px 24px
-		border: 0.5px solid black
-		border-radius: 12px 12px 0 0
-		cursor: pointer
-		&.active
-			background-color: var(--red-active)
+  display: flex
+  list-style: none
 
-// 活動介紹
+  li
+    background-color: var(--red-inactive)
+    color: white
+    padding: 8px 24px
+    border-radius: 12px 12px 0 0
+    cursor: pointer
+
+    &.active
+      background-color: var(--red-active)
+
 .activity-intro
-	padding-top: 4px
-	padding-bottom: 6px
-	margin-bottom: 16px
-	display: flex
-	border-bottom: 10px solid var(--red-active)
-	h3
-		margin-left: 8px
-		font-size: 30px
-		font-weight: 400
-	.star-icon
-		width: 32px
-		cursor: pointer
+  padding-top: 4px
+  padding-bottom: 6px
+  margin-bottom: 16px
+  display: flex
+  height: 60px
+  border-bottom: 10px solid var(--red-active)
 
-// 相似活動
+  h3
+    margin-left: 8px
+    font-size: 30px
+    font-weight: 400
+    margin-top: auto
+
+  .star-icon
+    width: 32px
+    cursor: pointer
+
 .related-events
-	border: 1px solid #000000
-	border-radius: 10px
-	padding: 16px
-	margin-bottom: 8px
-	display: flex
-	gap: 8px
-	h3
-		font-weight: 300
-		color: #535353
+  border: 1px solid #000000
+  border-radius: 10px
+  padding: 10px
+  margin-top: 8px
+  margin-bottom: 8px
+  display: flex
+  gap: 8px
+
+  h3
+    font-weight: bold
+    color: #000000
+    margin-top: auto
+    margin-bottom: auto
 
 .related-event-badge
-	background-color: var(--red-inactive)
-	width: 120px
-	padding: 4px 8px
-	border: none
-	border-radius: 4px
-	cursor: pointer
+  background-color: var(--red-inactive)
+  width: auto
+  padding: 4px 8px
+  border: none
+  border-radius: 4px
+  cursor: pointer
 
-//history訊號
-.history-records-info
-	background-color: var(--bg-gray)
-	border-radius: 0 12px 12px
-	padding: 16px
-	height: 1000px
-// AI 訊號
-.ai-signal-info-right
-	background-color: var(--bg-gray)
-	border-radius: 0 12px 12px
-	padding: 16px
-	height: 600px
 .pie
-	position: relative
-	left: 5px
-	width: 50%
-	height: 50%
-
-.right_pie
-	position: relative
-	left: 7px
-	width: 40%
-	height: 40%
-
-.container
-	display: flex
-	flex-wrap: wrap
+  position: relative
+  left: 5px
+  width: 50%
+  height: 50%
 
 .canvasjs-chart-credit
-	display: none
+  display: none
+
+.left-pie-chart
+  margin-top: 10px
+  margin-left: 50px
+
+.custom-button
+  padding:8px
+
+.product-box 
+  background-color: #f0f0f0
+  padding: 8px
+  margin-bottom: 8px
+  border-radius: 11px
+  text-align: center
+  width: 182px
+  
+.top5-products
+  margin-top:20px

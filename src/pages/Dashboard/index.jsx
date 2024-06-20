@@ -31,7 +31,9 @@ export default function Dashboard() {
         </div>
         <BigCalendar/>
       </div>
-      <EventInfoArea />
+      <div className="event-Info-Area">
+        <EventInfoArea />
+      </div>
     </div>
   );
 }

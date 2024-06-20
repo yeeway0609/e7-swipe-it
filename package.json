@@ -22,7 +22,8 @@
     "react-date-range": "^2.0.1",
     "react-dom": "^16.14.0",
     "react-router-dom": "^6.22.3",
-    "react-svg-map": "^2.2.0"
+    "react-svg-map": "^2.2.0",
+    "react-wordcloud": "^1.2.7"
   },
   "devDependencies": {
     "@types/bun": "latest",
